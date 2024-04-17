@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.config;
+package com.nilo.communityapplication.auth.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

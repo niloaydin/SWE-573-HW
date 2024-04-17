@@ -1,9 +1,6 @@
-package com.nilo.communityapplication.service;
+package com.nilo.communityapplication.auth;
 
-import com.nilo.communityapplication.Controller.AuthenticationRequest;
-import com.nilo.communityapplication.Controller.AuthenticationResponse;
-import com.nilo.communityapplication.Controller.RegisterRequest;
-import com.nilo.communityapplication.config.JwtService;
+import com.nilo.communityapplication.auth.config.JwtService;
 import com.nilo.communityapplication.model.Role;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.UserRepository;

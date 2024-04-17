@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.Controller;
+package com.nilo.communityapplication.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

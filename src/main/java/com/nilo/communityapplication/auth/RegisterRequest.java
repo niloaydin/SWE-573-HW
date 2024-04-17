@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.Controller;
+package com.nilo.communityapplication.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

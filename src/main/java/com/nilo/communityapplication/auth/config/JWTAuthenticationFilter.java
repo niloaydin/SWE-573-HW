@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.config;
+package com.nilo.communityapplication.auth.config;
 
 import com.nilo.communityapplication.model.User;
 import jakarta.servlet.FilterChain;

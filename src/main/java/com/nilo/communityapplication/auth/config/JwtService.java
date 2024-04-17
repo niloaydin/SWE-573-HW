@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.config;
+package com.nilo.communityapplication.auth.config;
 
 import com.nilo.communityapplication.model.User;
 import io.jsonwebtoken.Claims;
@@ -10,7 +10,6 @@ import lombok.extern.java.Log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;

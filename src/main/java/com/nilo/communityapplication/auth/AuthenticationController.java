@@ -1,7 +1,6 @@
-package com.nilo.communityapplication.Controller;
+package com.nilo.communityapplication.auth;
 
 
-import com.nilo.communityapplication.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
