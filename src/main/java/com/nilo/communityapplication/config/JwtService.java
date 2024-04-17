@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.config;
 
+import com.nilo.communityapplication.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -7,6 +8,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.java.Log;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -21,29 +24,32 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final String SECRET_KEY="602dcd264447c05d84b93d9cc5cd6973d8af5d19d0830fed10b031dc6445c65f";
+    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
     public String extractEmail(String token){
-
-        return extractClaim(token, Claims::getSubject);
+        String email  = extractClaim(token, Claims::getSubject);
+        logger.info("EMAIL IN EXTRACT EMAIL {}", email);
+        return email;
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(User userDetails){
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
+    public String generateToken(Map<String,Object> extraClaims, User userDetails){
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, User userDetails){
         final String username = extractEmail(token);
+        logger.warn("USERNAME IN ISTOKENVALID {}", username);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 

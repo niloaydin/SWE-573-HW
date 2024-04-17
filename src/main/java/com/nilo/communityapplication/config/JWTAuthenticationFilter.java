@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.config;
 
+import com.nilo.communityapplication.model.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,8 +41,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtService.extractEmail(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            logger.info("User Details are: "+userDetails.toString());
+            logger.info("Is Token Valid: "+jwtService.isTokenValid(jwt,(User) userDetails));
 
-            if (jwtService.isTokenValid(jwt, userDetails)) {
+            if (jwtService.isTokenValid(jwt, (User) userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
