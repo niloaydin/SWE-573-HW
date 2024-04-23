@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CommunityService {
@@ -47,6 +49,10 @@ public class CommunityService {
         logger.info("DOES USER HAVE COMMUNITY {}", userDetails.getCommunities());
 
         return savedCommunity;
+    }
+
+    public Optional<Community> getCommunityById(Long communityId) {
+        return communityRepository.findById(communityId);
     }
 
 }
