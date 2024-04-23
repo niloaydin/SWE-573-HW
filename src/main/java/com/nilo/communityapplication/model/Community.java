@@ -26,8 +26,8 @@ public class Community {
     @Column(nullable = false)
     private boolean isPublic;
 
-//    @ManyToOne
-//    @JoinColumn(name = "owner_id")
-//    private User owner;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
 }
