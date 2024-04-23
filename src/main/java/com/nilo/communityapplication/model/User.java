@@ -20,7 +20,7 @@ import java.util.List;
 @Table(name="users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String firstName;
     private String lastName;
@@ -33,6 +33,9 @@ public class User implements UserDetails {
     private String avatar;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+//    @OneToMany(mappedBy = "owner",fetch = FetchType.EAGER)
+//    private List<Community> communities;
 
 
     @Override
