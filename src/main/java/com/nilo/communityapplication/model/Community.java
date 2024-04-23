@@ -1,10 +1,8 @@
 package com.nilo.communityapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +26,8 @@ public class Community {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
+    @JsonBackReference()
+    @EqualsAndHashCode.Exclude
     private User owner;
 
 }

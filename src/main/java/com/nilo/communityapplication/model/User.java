@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -35,6 +36,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner",  fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @JsonManagedReference()
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Community> communities;
 
 
