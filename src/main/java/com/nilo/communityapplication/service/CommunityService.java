@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,7 +51,11 @@ public class CommunityService {
 
         return savedCommunity;
     }
-
+    public List<Community> getAllCommunities(){
+        List<Community> communities = communityRepository.findAll();
+        System.out.println("Retrieved users: " + communities.size()); // Logging
+        return communities;
+    }
     public Optional<Community> getCommunityById(Long communityId) {
         return communityRepository.findById(communityId);
     }

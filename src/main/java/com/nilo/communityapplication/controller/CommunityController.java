@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,6 +21,13 @@ public class CommunityController {
     @PostMapping
     public Community createNewCommunity(@RequestBody CommunityRequest communityRequest) throws Exception {
         return communityService.createCommunity(communityRequest);
+    }
+
+    @GetMapping
+    public List<Community> getAllCommunities(){
+
+        return communityService.getAllCommunities();
+
     }
     @GetMapping("/{communityId}")
     public ResponseEntity<Community> getCommunityById(@PathVariable Long communityId) {
