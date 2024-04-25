@@ -1,8 +1,11 @@
 package com.nilo.communityapplication.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -26,8 +29,20 @@ public class Community {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    @JsonBackReference()
+    @JsonBackReference("user-community-owner")
     @EqualsAndHashCode.Exclude
     private User owner;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "communityMembers",
+            joinColumns = @JoinColumn(name = "community_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @JsonIdentityReference(alwaysAsId = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<User> members;
 
 }

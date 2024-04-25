@@ -1,6 +1,6 @@
 package com.nilo.communityapplication.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -36,12 +36,16 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner",  fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
-    @JsonManagedReference()
+    @JsonManagedReference("user-community-owner")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Community> communities;
 
-
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    @JsonIdentityReference(alwaysAsId = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Community> joinedCommunities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

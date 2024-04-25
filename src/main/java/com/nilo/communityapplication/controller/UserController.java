@@ -5,10 +5,7 @@ import com.nilo.communityapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,5 +37,10 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping("/joinCommunity/{communityId}")
+    public ResponseEntity<String> joinCommunity(@PathVariable Long communityId) {
+        userService.joinCommunity(communityId);
+        return ResponseEntity.ok("User joined the community successfully.");
     }
 }
