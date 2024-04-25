@@ -1,8 +1,8 @@
 package com.nilo.communityapplication.auth;
 
 import com.nilo.communityapplication.auth.config.JwtService;
-import com.nilo.communityapplication.model.Role;
-import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.model.entity.Role;
+import com.nilo.communityapplication.model.entity.User;
 import com.nilo.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

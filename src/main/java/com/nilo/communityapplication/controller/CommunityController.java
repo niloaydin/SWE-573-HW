@@ -1,8 +1,8 @@
 package com.nilo.communityapplication.controller;
 
-import com.nilo.communityapplication.model.Community;
-import com.nilo.communityapplication.model.User;
-import com.nilo.communityapplication.requests.CommunityRequest;
+import com.nilo.communityapplication.model.entity.Community;
+import com.nilo.communityapplication.model.requests.CommunityRequest;
+import com.nilo.communityapplication.model.response.CommunityResponse;
 import com.nilo.communityapplication.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,13 @@ public class CommunityController {
 
     }
     @GetMapping("/{communityId}")
-    public ResponseEntity<Community> getCommunityById(@PathVariable Long communityId) {
+    public ResponseEntity<CommunityResponse> getCommunityById(@PathVariable Long communityId) {
+        CommunityResponse communityResponse = new CommunityResponse();
+
+        //Burada DTO yu Objeye setlicez
+
+/*        communityResponse.*/
+
         Optional<Community> community = communityService.getCommunityById(communityId);
 
         if(community.isPresent()) {

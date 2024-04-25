@@ -1,7 +1,7 @@
-package com.nilo.communityapplication.requests;
+package com.nilo.communityapplication.model.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

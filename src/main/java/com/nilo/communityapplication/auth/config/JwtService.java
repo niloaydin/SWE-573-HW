@@ -1,6 +1,6 @@
 package com.nilo.communityapplication.auth.config;
 
-import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

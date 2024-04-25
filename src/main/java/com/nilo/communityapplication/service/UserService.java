@@ -1,7 +1,7 @@
 package com.nilo.communityapplication.service;
 
-import com.nilo.communityapplication.model.Community;
-import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.model.entity.Community;
+import com.nilo.communityapplication.model.entity.User;
 import com.nilo.communityapplication.repository.CommunityRepository;
 import com.nilo.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,6 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Community not found"));
 
         // Add the user to the community's members
-        community.getMembers().add(user);
 
         // Add the community to the user's joinedCommunities
         user.getJoinedCommunities().add(community);
