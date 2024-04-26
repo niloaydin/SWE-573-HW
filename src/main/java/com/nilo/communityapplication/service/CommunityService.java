@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class CommunityService {
         // Get authenticated user details
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        UserCommunityRole ownerRole = userCommunityRoleRepository.findByName("OWNER")
+                .orElseThrow(() -> new RuntimeException("Owner role not found"));
+
         Community newCommunity = Community.builder()
                 .name(communityRequest.getName())
                 .description(communityRequest.getDescription())
@@ -43,10 +47,23 @@ public class CommunityService {
                 .build();
         newCommunity.setOwner(userDetails);
         Community savedCommunity = communityRepository.save(newCommunity);
+        UserJoinedCommunities userJoinedCommunities = new UserJoinedCommunities();
+
+        CommunityJoinCompositeKey key = new CommunityJoinCompositeKey();
+        key.setUserId(userDetails.getId());
+        key.setCommunityId(savedCommunity.getId());
+        userJoinedCommunities.setId(key);
+
+        userJoinedCommunities.setUser(userDetails);
+        userJoinedCommunities.setCommunity(savedCommunity);
+        userJoinedCommunities.setRole(ownerRole);
+
+        // Save the UserJoinedCommunities entity
+        userJoinedCommunityRepository.save(userJoinedCommunities);
 
         // Update user's communities
-        userDetails.getCommunities().add(savedCommunity);
-        userRepository.save(userDetails);
+/*        userDetails.getCommunities().add(savedCommunity);
+        userRepository.save(userDetails);*/
 
         logger.info("SAVED COMMUNITY {}", savedCommunity);
         logger.info("DOES USER HAVE COMMUNITY {}", userDetails.getCommunities());
@@ -103,6 +120,10 @@ public class CommunityService {
 
 
 
+    }
+
+    public List<Community> ilkerAbi(Long roleId){
+        return userCommunityRoleRepository.deneme(roleId);
     }
 
 }

@@ -45,4 +45,9 @@ public class CommunityController {
         return ResponseEntity.ok("User joined the community successfully.");
     }
 
+    @GetMapping("/neyzo")
+    public List<Community> neyzo(@RequestParam("role") Long roleId ){
+        return communityService.ilkerAbi(roleId);
+    }
+
 }
