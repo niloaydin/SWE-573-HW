@@ -35,22 +35,5 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
-    public void joinCommunity(Long communityId) {
-        // Get the authenticated user details
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // Get the community entity
-        Community community = communityRepository.findById(communityId)
-                .orElseThrow(() -> new RuntimeException("Community not found"));
-
-        // Add the user to the community's members
-        community.getMembers().add(user);
-
-        // Add the community to the user's joinedCommunities
-        user.getJoinedCommunities().add(community);
-
-        // Update both entities
-        communityRepository.save(community);
-        userRepository.save(user);
-    }
 }

@@ -39,5 +39,10 @@ public class CommunityController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @PostMapping("/joinCommunity/{communityId}")
+    public ResponseEntity<String> joinCommunity(@PathVariable Long communityId) {
+        communityService.joinCommunity(communityId);
+        return ResponseEntity.ok("User joined the community successfully.");
+    }
 
 }

@@ -38,9 +38,5 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/joinCommunity/{communityId}")
-    public ResponseEntity<String> joinCommunity(@PathVariable Long communityId) {
-        userService.joinCommunity(communityId);
-        return ResponseEntity.ok("User joined the community successfully.");
-    }
+
 }

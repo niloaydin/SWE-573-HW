@@ -41,11 +41,18 @@ public class User implements UserDetails {
     @ToString.Exclude
     private Set<Community> communities;
 
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+    @JsonManagedReference("user-community-join")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Community> joinedCommunities;
+    private Set<UserJoinedCommunities> joinedCommunities;
+
+/*    @JsonIgnoreProperties("members")
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Community> joinedCommunities;*/
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

@@ -33,6 +33,13 @@ public class Community {
     @EqualsAndHashCode.Exclude
     private User owner;
 
+    @OneToMany(mappedBy = "community", fetch=FetchType.EAGER)
+    @JsonManagedReference("community-join")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set <UserJoinedCommunities> members;
+
+/*    @JsonIgnoreProperties("joinedCommunities")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "communityMembers",
@@ -40,9 +47,8 @@ public class Community {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
-    @JsonIdentityReference(alwaysAsId = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<User> members;
+    private Set<User> members;*/
 
 }
