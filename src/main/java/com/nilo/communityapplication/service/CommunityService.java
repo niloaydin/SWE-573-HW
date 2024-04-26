@@ -1,18 +1,21 @@
 package com.nilo.communityapplication.service;
 
 import com.nilo.communityapplication.auth.AuthenticationService;
-import com.nilo.communityapplication.model.entity.Community;
-import com.nilo.communityapplication.model.entity.User;
+import com.nilo.communityapplication.auth.config.JwtService;
+import com.nilo.communityapplication.model.Community;
+import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.CommunityRepository;
 import com.nilo.communityapplication.repository.UserRepository;
-import com.nilo.communityapplication.model.requests.CommunityRequest;
+import com.nilo.communityapplication.requests.CommunityRequest;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import com.nilo.communityapplication.model.mapper.CommunityMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +28,6 @@ public class CommunityService {
     private final UserRepository userRepository;
     private final AuthenticationService authenticationService;
     private static final Logger logger = LoggerFactory.getLogger(CommunityService.class);
-    private final CommunityMapper communityMapper;
 
     @Transactional
     public Community createCommunity(CommunityRequest communityRequest) throws Exception {
@@ -54,14 +56,7 @@ public class CommunityService {
         System.out.println("Retrieved users: " + communities.size()); // Logging
         return communities;
     }
-
-    public CommunityDTO getCommunityById(Long communityId) {
-
-        Community oguz = communityRepository.findById(communityId);
-
-        CommunityDTO community = communityMapper.apply(oguz);
-
-
+    public Optional<Community> getCommunityById(Long communityId) {
         return communityRepository.findById(communityId);
     }
 

@@ -1,6 +1,6 @@
 package com.nilo.communityapplication.repository;
 
-import com.nilo.communityapplication.model.entity.User;
+import com.nilo.communityapplication.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

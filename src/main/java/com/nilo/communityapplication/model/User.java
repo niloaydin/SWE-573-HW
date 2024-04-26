@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.model.entity;
+package com.nilo.communityapplication.model;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
@@ -46,7 +46,6 @@ public class User implements UserDetails {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Community> joinedCommunities;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.model.entity;
+package com.nilo.communityapplication.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

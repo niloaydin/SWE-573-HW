@@ -1,4 +1,4 @@
-package com.nilo.communityapplication.model.entity;
+package com.nilo.communityapplication.model;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;

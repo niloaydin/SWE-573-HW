@@ -1,6 +1,6 @@
 package com.nilo.communityapplication.controller;
 
-import com.nilo.communityapplication.model.entity.User;
+import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
