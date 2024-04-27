@@ -19,6 +19,8 @@ public class PostDataField {
 
     private String type;
 
+    private String value;
+
     @Column(nullable = false)
     private boolean isRequired;
 

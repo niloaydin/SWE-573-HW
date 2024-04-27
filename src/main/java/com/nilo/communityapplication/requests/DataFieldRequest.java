@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class DataFieldRequest {
     private String name;
     private FieldType type;
+    private String value;
     @JsonProperty("isRequired")
     private boolean isRequired;
 

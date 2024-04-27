@@ -1,7 +1,9 @@
 package com.nilo.communityapplication.controller;
 
 import com.nilo.communityapplication.model.Community;
+import com.nilo.communityapplication.model.Post;
 import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.repository.PostRepository;
 import com.nilo.communityapplication.requests.CommunityRequest;
 import com.nilo.communityapplication.service.CommunityService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommunityController {
     private final CommunityService communityService;
+    private final PostRepository postRepository;
 
     @PostMapping
     public Community createNewCommunity(@RequestBody CommunityRequest communityRequest) throws Exception {
@@ -50,4 +53,10 @@ public class CommunityController {
         return communityService.ilkerAbi(roleId);
     }
 
+
+    @GetMapping("/posts/{communityId}")
+    public ResponseEntity<List<Post>> postsInCommunity(@PathVariable Long communityId) {
+        List<Post> posts = communityService.getPostsInCommunity(communityId);
+        return ResponseEntity.ok(posts);
+    }
 }

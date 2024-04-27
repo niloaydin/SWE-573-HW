@@ -25,4 +25,10 @@ public class PostTemplate {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<PostDataField> datafields;
+
+    @OneToMany(mappedBy = "template", fetch = FetchType.EAGER)
+    @JsonManagedReference("post-templates")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Post> posts;
 }

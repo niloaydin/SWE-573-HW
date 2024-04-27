@@ -39,6 +39,13 @@ public class Community {
     @ToString.Exclude
     private Set <UserJoinedCommunities> members;
 
+    @OneToMany(mappedBy = "community", fetch = FetchType.EAGER)
+    @JsonManagedReference("community-posts")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Post> communityPosts;
+
+
 /*    @JsonIgnoreProperties("joinedCommunities")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

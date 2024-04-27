@@ -48,6 +48,12 @@ public class User implements UserDetails {
     @ToString.Exclude
     private Set<UserJoinedCommunities> joinedCommunities;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonManagedReference("user-posts")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Post> userPosts;
+
 /*    @JsonIgnoreProperties("members")
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
