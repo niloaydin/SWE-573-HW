@@ -1,8 +1,8 @@
 package com.nilo.communityapplication.controller;
 
-import com.nilo.communityapplication.model.entity.Community;
-import com.nilo.communityapplication.model.requests.CommunityRequest;
-import com.nilo.communityapplication.model.response.CommunityResponse;
+import com.nilo.communityapplication.model.Community;
+import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.requests.CommunityRequest;
 import com.nilo.communityapplication.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,13 +30,7 @@ public class CommunityController {
 
     }
     @GetMapping("/{communityId}")
-    public ResponseEntity<CommunityResponse> getCommunityById(@PathVariable Long communityId) {
-        CommunityResponse communityResponse = new CommunityResponse();
-
-        //Burada DTO yu Objeye setlicez
-
-/*        communityResponse.*/
-
+    public ResponseEntity<Community> getCommunityById(@PathVariable Long communityId) {
         Optional<Community> community = communityService.getCommunityById(communityId);
 
         if(community.isPresent()) {
@@ -44,6 +38,16 @@ public class CommunityController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping("/joinCommunity/{communityId}")
+    public ResponseEntity<String> joinCommunity(@PathVariable Long communityId) {
+        communityService.joinCommunity(communityId);
+        return ResponseEntity.ok("User joined the community successfully.");
+    }
+
+    @GetMapping("/neyzo")
+    public List<Community> neyzo(@RequestParam("role") Long roleId ){
+        return communityService.ilkerAbi(roleId);
     }
 
 }

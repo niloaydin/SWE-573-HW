@@ -1,5 +1,6 @@
-package com.nilo.communityapplication.model.entity;
+package com.nilo.communityapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
-@Table(name="posts")
-public class Post {
-
+@Builder
+@Table(name = "user_community_role")
+public class UserCommunityRole {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
-
+    private String name;
 }
