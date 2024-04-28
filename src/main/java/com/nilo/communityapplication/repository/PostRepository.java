@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("SELECT p FROM Post p " +
-            "JOIN FETCH p.template t " +
-            "JOIN FETCH t.datafields df " +
-            "WHERE p.community.id = :communityId")
+    @Query("SELECT DISTINCT p FROM Post p " +
+            "LEFT JOIN FETCH p.community c " +
+            "LEFT JOIN FETCH p.template t " +
+            "LEFT JOIN FETCH t.datafields " +
+            "WHERE c.id = :communityId")
     List<Post> findByCommunityIdWithFields(@Param("communityId") Long communityId);
 }

@@ -38,7 +38,6 @@ public class PostTemplateService {
                 PostDataField dataField = new PostDataField();
                 dataField.setName(fieldRequest.getName());
                 dataField.setType(mapFieldType(fieldRequest.getType()));
-                dataField.setValue(fieldRequest.getValue());
                 dataField.setRequired(fieldRequest.isRequired());
                 dataField.setPostTemplate(postTemplate);
                 postDataFieldRepository.save(dataField);

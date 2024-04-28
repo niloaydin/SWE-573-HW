@@ -1,8 +1,12 @@
 package com.nilo.communityapplication.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -19,8 +23,6 @@ public class PostDataField {
 
     private String type;
 
-    private String value;
-
     @Column(nullable = false)
     private boolean isRequired;
 
@@ -30,5 +32,11 @@ public class PostDataField {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private PostTemplate postTemplate;
+
+/*    @OneToMany(mappedBy = "postDataField", fetch = FetchType.LAZY)
+    @JsonManagedReference("post-data-value")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<PostFieldValue> values;*/
 
 }

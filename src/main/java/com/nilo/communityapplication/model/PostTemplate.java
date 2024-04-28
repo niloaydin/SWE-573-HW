@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,9 +27,4 @@ public class PostTemplate {
     @ToString.Exclude
     private Set<PostDataField> datafields;
 
-    @OneToMany(mappedBy = "template", fetch = FetchType.EAGER)
-    @JsonManagedReference("post-templates")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Post> posts;
 }

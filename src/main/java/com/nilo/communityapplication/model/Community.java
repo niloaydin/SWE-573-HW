@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,17 +34,17 @@ public class Community {
     @EqualsAndHashCode.Exclude
     private User owner;
 
-    @OneToMany(mappedBy = "community", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "community", fetch=FetchType.LAZY)
     @JsonManagedReference("community-join")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set <UserJoinedCommunities> members;
+    private List<UserJoinedCommunities> members;
 
-    @OneToMany(mappedBy = "community", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "community", fetch = FetchType.LAZY)
     @JsonManagedReference("community-posts")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Post> communityPosts;
+    private List<Post> communityPosts;
 
 
 /*    @JsonIgnoreProperties("joinedCommunities")

@@ -1,10 +1,15 @@
 package com.nilo.communityapplication.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +18,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="posts")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -34,12 +38,20 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "template_id")
-    @JsonBackReference("post-templates")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonIgnore()
     private PostTemplate template;
+
+    private String value;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @JsonManagedReference("post-field-value")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<PostFieldValue> fieldValues;
 
 }

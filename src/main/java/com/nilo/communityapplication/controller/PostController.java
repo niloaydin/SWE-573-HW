@@ -29,9 +29,15 @@ public class PostController {
 
     }
 
-    @GetMapping("/{communityId}")
+/*    @GetMapping("/{communityId}")
     public ResponseEntity<List<Post>> getPostsByCommunity(@PathVariable Long communityId) {
         List<Post> posts = postService.getPostsByCommunity(communityId);
+        return ResponseEntity.ok(posts);
+    }*/
+
+    @GetMapping()
+    public ResponseEntity<List<Post>> getAll() {
+        List<Post> posts = postService.findAll();
         return ResponseEntity.ok(posts);
     }
 }
