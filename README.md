@@ -34,8 +34,10 @@ Here's an example of how to configure the database connection:
 spring.datasource.url=jdbc:postgresql://localhost:5432/community_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
+```
 
-Replace your_username and your_password with your PostgreSQL username and password.
+Replace `your_username` and `your_password` with your PostgreSQL username and password.
+
 
 ## Getting Started
 
