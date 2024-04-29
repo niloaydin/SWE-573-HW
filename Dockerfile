@@ -5,4 +5,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build /target/community-application-0.0.1-SNAPSHOT.jar community-application.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "-community-application.jar"]
+ENTRYPOINT ["java", "-jar", "community-application.jar"]
