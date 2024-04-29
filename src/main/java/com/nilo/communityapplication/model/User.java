@@ -34,19 +34,25 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "owner",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner",  fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     @JsonManagedReference("user-community-owner")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Community> communities;
+    private List<Community> communities;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JsonManagedReference("user-community-join")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<UserJoinedCommunities> joinedCommunities;
+    private List<UserJoinedCommunities> joinedCommunities;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonManagedReference("user-posts")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Post> userPosts;
 
 /*    @JsonIgnoreProperties("members")
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)

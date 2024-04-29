@@ -1,10 +1,15 @@
 package com.nilo.communityapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,10 +18,40 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="posts")
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference("user-posts")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "community_id")
+    @JsonBackReference("community-posts")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Community community;
+
+    @ManyToOne
+    @JoinColumn(name = "template_id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore()
+    private PostTemplate template;
+
+    private String value;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @JsonManagedReference("post-field-value")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<PostFieldValue> fieldValues;
 
 }

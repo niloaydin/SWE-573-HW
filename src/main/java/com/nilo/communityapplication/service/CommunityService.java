@@ -3,10 +3,7 @@ package com.nilo.communityapplication.service;
 import com.nilo.communityapplication.auth.AuthenticationService;
 import com.nilo.communityapplication.auth.config.JwtService;
 import com.nilo.communityapplication.model.*;
-import com.nilo.communityapplication.repository.CommunityRepository;
-import com.nilo.communityapplication.repository.UserCommunityRoleRepository;
-import com.nilo.communityapplication.repository.UserJoinedCommunityRepository;
-import com.nilo.communityapplication.repository.UserRepository;
+import com.nilo.communityapplication.repository.*;
 import com.nilo.communityapplication.requests.CommunityRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -30,6 +27,8 @@ public class CommunityService {
     private final UserRepository userRepository;
     private final UserJoinedCommunityRepository userJoinedCommunityRepository;
     private final UserCommunityRoleRepository userCommunityRoleRepository;
+
+    private final PostRepository postRepository;
     private static final Logger logger = LoggerFactory.getLogger(CommunityService.class);
 
     @Transactional
@@ -126,6 +125,9 @@ public class CommunityService {
         return userCommunityRoleRepository.deneme(roleId);
     }
 
+    public List<Post> getPostsInCommunity(Long communityId) {
+        return postRepository.findByCommunityIdWithFields(communityId);
+    }
 }
 
 
