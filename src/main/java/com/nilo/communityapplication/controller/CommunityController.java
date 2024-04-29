@@ -6,6 +6,9 @@ import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.PostRepository;
 import com.nilo.communityapplication.requests.CommunityRequest;
 import com.nilo.communityapplication.service.CommunityService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "swagger_authentication")
 @RequestMapping("/api/v1/community")
 @RequiredArgsConstructor
 public class CommunityController {
@@ -22,18 +26,22 @@ public class CommunityController {
     private final PostRepository postRepository;
 
     @PostMapping
-    public Community createNewCommunity(@RequestBody CommunityRequest communityRequest) throws Exception {
+    @Operation(summary = "Creates new community", description = "Get the info from the request body and save to the database.")
+    public Community createNewCommunity(@Parameter(description = "Necessary information to create a community", required = true) @RequestBody CommunityRequest communityRequest) throws Exception {
         return communityService.createCommunity(communityRequest);
     }
 
     @GetMapping
+    @Operation(summary = "Fetches all communities", description = "Fetches all communities from database.")
     public List<Community> getAllCommunities(){
+
 
         return communityService.getAllCommunities();
 
     }
     @GetMapping("/{communityId}")
-    public ResponseEntity<Community> getCommunityById(@PathVariable Long communityId) {
+    @Operation(summary = "Fetches one community with ID", description = "Fetches one community from database with community ID.")
+    public ResponseEntity<Community> getCommunityById( @Parameter(description = "Community Id", required = true) @PathVariable Long communityId) {
         Optional<Community> community = communityService.getCommunityById(communityId);
 
         if(community.isPresent()) {
@@ -54,7 +62,7 @@ public class CommunityController {
     }
 
 
-    @GetMapping("/posts/{communityId}")
+    @GetMapping("/{communityId}/posts")
     public ResponseEntity<List<Post>> postsInCommunity(@PathVariable Long communityId) {
         List<Post> posts = communityService.getPostsInCommunity(communityId);
         return ResponseEntity.ok(posts);

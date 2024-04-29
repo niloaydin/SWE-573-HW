@@ -1,20 +1,25 @@
 package com.nilo.communityapplication.service;
 
 import com.nilo.communityapplication.controller.PostTemplateController;
+import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.FieldType;
 import com.nilo.communityapplication.model.PostDataField;
 import com.nilo.communityapplication.model.PostTemplate;
+import com.nilo.communityapplication.repository.CommunityRepository;
 import com.nilo.communityapplication.repository.PostDataFieldRepository;
 import com.nilo.communityapplication.repository.PostTemplateRepository;
 import com.nilo.communityapplication.requests.DataFieldRequest;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -24,13 +29,43 @@ public class PostTemplateService {
     private final PostDataFieldRepository postDataFieldRepository;
     private final PostTemplateRepository postTemplateRepository;
     private static final Logger logger = LoggerFactory.getLogger(PostTemplateService.class);
+    private final CommunityRepository communityRepository;
 
+    @PostConstruct
+    public void initializeTemplates() {
+        // Check if templates already exist in the database
+        if (postTemplateRepository.count() == 0) {
+            createDefaultTemplate();
+        }
+    }
+
+    public void createDefaultTemplate(){
+        PostTemplate defaultTemplate = new PostTemplate();
+        defaultTemplate.setName("Default Template");
+        postTemplateRepository.save(defaultTemplate);
+
+        PostDataField firstField = new PostDataField();
+        firstField.setName("Title");
+        firstField.setType(mapFieldType(FieldType.valueOf("TEXT")));
+        firstField.setRequired(true);
+        firstField.setPostTemplate(defaultTemplate);
+        postDataFieldRepository.save(firstField);
+
+        PostDataField secondField = new PostDataField();
+        secondField.setName("Description");
+        secondField.setType(mapFieldType(FieldType.valueOf("TEXT")));
+        secondField.setRequired(true);
+        secondField.setPostTemplate(defaultTemplate);
+        postDataFieldRepository.save(secondField);
+
+    }
 
     @Transactional
-    public PostTemplate createPostTemplate(String templateName, Set<DataFieldRequest> dataFields) {
+    public PostTemplate createPostTemplate(String templateName, Set<DataFieldRequest> dataFields, Long communityId) {
         PostTemplate postTemplate = new PostTemplate();
         postTemplate.setName(templateName);
         logger.info("datafield request {}", dataFields);
+        Community communityToSaveTemplate = communityRepository.findById(communityId) .orElseThrow(() -> new IllegalArgumentException("Community not found with id: " + communityId));
 
         Set<PostDataField> postDataFields = new HashSet<>();
         if (dataFields != null) {
@@ -46,6 +81,7 @@ public class PostTemplateService {
         }
         logger.info("post data fields  {}", postDataFields);
         postTemplate.setDatafields(postDataFields);
+        postTemplate.setCommunity(communityToSaveTemplate);
 
         return postTemplateRepository.save(postTemplate);
     }
@@ -56,11 +92,11 @@ public class PostTemplateService {
                 return "String";
             case NUMBER:
                 return "Integer";
-            // Add mappings for other types if needed
             default:
                 throw new IllegalArgumentException("Unsupported field type: " + fieldType);
         }
     }
+
 
     public List<PostTemplate> getTemplates(){
         return postTemplateRepository.findAll();

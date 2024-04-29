@@ -11,5 +11,7 @@ import java.util.Optional;
 @Repository
 public interface CommunityRepository extends JpaRepository<Community,Long> {
     List<Community> findAll();
-/*    Optional<Community> findById(String email);*/
+/*    Community findById(Long communityId);*/
+
+
 }

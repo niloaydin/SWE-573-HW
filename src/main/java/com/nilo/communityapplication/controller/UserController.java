@@ -2,6 +2,7 @@ package com.nilo.communityapplication.controller;
 
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "swagger_authentication")
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
@@ -23,7 +25,7 @@ public class UserController {
             return userService.getAllUsers();
 
     }
-    @GetMapping("/user-communities")
+    @GetMapping("/user_communities")
     public ResponseEntity<List<User>> getAllUsersWithCommunities() {
         List<User> users = userService.getAllUsersWithCommunities();
         return ResponseEntity.ok(users);

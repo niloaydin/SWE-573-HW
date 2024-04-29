@@ -124,16 +124,21 @@ public class PostService {
         return postRepository.findByCommunityIdWithFields(communityId);
     }
 
-    public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws ChangeSetPersister.NotFoundException {
+    public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         // Fetch community by ID
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        PostTemplate template;
+        if (templateId !=null) {
+        template=postTemplateRepository.findById(templateId)
+                    .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        } else {
+            template = postTemplateRepository.findByName("Default Template");
+        }
 
-        // Fetch template by ID
-        PostTemplate template = postTemplateRepository.findById(templateId)
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        validateRequestData(template, requestData);
 
         Post post = new Post();
         post.setCommunity(community);
@@ -142,7 +147,6 @@ public class PostService {
         post.setCreatedAt(LocalDateTime.now());
         post=postRepository.save(post);
         Set<PostDataField> dataField = template.getDatafields();
-        Set<PostFieldValue> postFieldValues = new HashSet<>();
 
 
 
@@ -166,7 +170,15 @@ public class PostService {
 
         return post;
     }
-
+    private void validateRequestData(PostTemplate template, Map<String, String> requestData) throws Exception {
+        Set<PostDataField> dataFields = template.getDatafields();
+        for (PostDataField field : dataFields) {
+            String fieldName = field.getName();
+            if (field.isRequired() && !requestData.containsKey(fieldName)) {
+                throw new Exception("Field '" + fieldName + "' is required");
+            }
+        }
+    }
     @Transactional
     public List<Post> findAll(){
         return postRepository.findAll();

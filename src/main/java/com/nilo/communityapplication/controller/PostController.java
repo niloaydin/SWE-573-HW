@@ -3,6 +3,7 @@ package com.nilo.communityapplication.controller;
 import com.nilo.communityapplication.model.Post;
 import com.nilo.communityapplication.requests.PostCreationRequest;
 import com.nilo.communityapplication.service.PostService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@SecurityRequirement(name = "swagger_authentication")
 @RequestMapping("/api/v1/post")
 @RequiredArgsConstructor
 public class PostController {
@@ -20,7 +22,7 @@ public class PostController {
     @PostMapping("/create/{communityId}")
     public ResponseEntity<?> createPost(
             @PathVariable Long communityId,
-            @RequestParam Long templateId,
+            @RequestParam(required = false) Long templateId,
             @RequestBody Map<String, String> requestData
     ) throws Exception {
 
