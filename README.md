@@ -48,3 +48,20 @@ To run the application locally, follow these steps:
 3. Run `./mvnw spring-boot:run` to start the backend server.
 4. Open your browser and visit [http://localhost:8080](http://localhost:8080) to view the application.
 
+### Run the Application Using Docker
+#### Prerequisities
+You need to have docker installed in order to run the docker file.
+#### Build Docker Image
+
+To build the Docker image, use the following command:
+
+```bash
+docker build -t community-application .
+```
+#### Run the Docker Container
+To run the Docker container, use the following command:
+```bash
+docker run -p 8080:8080 community-application
+```
+
+
