@@ -19,7 +19,7 @@ import java.util.Map;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping("/create/{communityId}")
+    @PostMapping("/{communityId}/create")
     public ResponseEntity<?> createPost(
             @PathVariable Long communityId,
             @RequestParam(required = false) Long templateId,
