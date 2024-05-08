@@ -1,0 +1,23 @@
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dpg-conm414f7o1s73fmm2g0-a.oregon-postgres.render.com:5432/application_d75h
+    username: application_d75h_user
+    password: wJ4HoxjTN5rlvQqpoGhDfBU8ahMlajZD
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    root=INFO:
+
+
