@@ -6,6 +6,7 @@ import com.nilo.communityapplication.service.PostService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +25,14 @@ public class PostController {
             @PathVariable Long communityId,
             @RequestParam(required = false) Long templateId,
             @RequestBody Map<String, String> requestData
-    ) throws Exception {
+    ) {
+        try {
 
             Post post = postService.createPost(communityId, templateId, requestData);
             return ResponseEntity.ok(post);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
 
     }
 

@@ -6,12 +6,14 @@ import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.PostRepository;
 import com.nilo.communityapplication.requests.CommunityRequest;
 import com.nilo.communityapplication.service.CommunityService;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,16 @@ public class CommunityController {
 
     @PostMapping
     @Operation(summary = "Creates new community", description = "Get the info from the request body and save to the database.")
-    public Community createNewCommunity(@Parameter(description = "Necessary information to create a community", required = true) @RequestBody CommunityRequest communityRequest) throws Exception {
-        return communityService.createCommunity(communityRequest);
+    public ResponseEntity<Object> createNewCommunity(@Parameter(description = "Necessary information to create a community", required = true) @RequestBody CommunityRequest communityRequest) throws Exception {
+        try {
+            Community community = communityService.createCommunity(communityRequest);
+            return ResponseEntity.ok(community);
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            // Return a 400 Bad Request response with the error message
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping

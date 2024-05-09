@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.controller;
 
+import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.PostTemplate;
 import com.nilo.communityapplication.requests.DataFieldRequest;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,14 +29,22 @@ public class PostTemplateController {
     private static final Logger logger = LoggerFactory.getLogger(PostTemplateController.class);
 
     @PostMapping
-    public ResponseEntity<PostTemplate> createPostTemplate(
+    public ResponseEntity<Object> createPostTemplate(
             @RequestParam Long communityId,
             @RequestBody PostTemplateRequest request) {
-        String templateName = request.getTemplateName();
-        Set<DataFieldRequest> dataFields = request.getDataFields();
-        logger.info("AAAAAAAAAAAAA");
-        PostTemplate createdPostTemplate = postTemplateService.createPostTemplate(templateName, dataFields, communityId);
-        return new ResponseEntity<>(createdPostTemplate, HttpStatus.CREATED);
+        try {
+
+            String templateName = request.getTemplateName();
+            Set<DataFieldRequest> dataFields = request.getDataFields();
+            logger.info("AAAAAAAAAAAAA");
+            PostTemplate createdPostTemplate = postTemplateService.createPostTemplate(templateName, dataFields, communityId);
+            return new ResponseEntity<>(createdPostTemplate, HttpStatus.CREATED);
+        } catch (Exception e) {
+
+            String errorMessage = "An error occurred in the service: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+
+        }
     }
 
     @GetMapping
