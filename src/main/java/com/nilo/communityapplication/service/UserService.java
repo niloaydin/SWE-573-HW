@@ -1,10 +1,12 @@
 package com.nilo.communityapplication.service;
 
+import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.CommunityRepository;
 import com.nilo.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +37,10 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
+    }
 
 }
