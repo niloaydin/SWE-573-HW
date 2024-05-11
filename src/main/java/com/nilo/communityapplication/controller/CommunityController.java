@@ -79,7 +79,7 @@ public class CommunityController {
         return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("/{communityId/posts/{postId}")
+    @GetMapping("/{communityId}/posts/{postId}")
     public ResponseEntity<Post> singlePostInCommunity(@PathVariable Long communityId, @PathVariable Long postId){
         Post singlePost = communityService.getSinglePostInCommunity(communityId, postId);
         return ResponseEntity.ok(singlePost);
