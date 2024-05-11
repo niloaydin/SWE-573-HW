@@ -47,5 +47,11 @@ public class PostController {
         List<Post> posts = postService.findAll();
         return ResponseEntity.ok(posts);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getSinglePost(@PathVariable Long id) {
+        Post singlePost = postService.findPostById(id);
+        return ResponseEntity.ok(singlePost);
+    }
 }
 
