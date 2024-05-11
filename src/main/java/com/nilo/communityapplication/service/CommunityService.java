@@ -2,6 +2,7 @@ package com.nilo.communityapplication.service;
 
 import com.nilo.communityapplication.auth.AuthenticationService;
 import com.nilo.communityapplication.auth.config.JwtService;
+import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
 import com.nilo.communityapplication.requests.CommunityRequest;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class CommunityService {
     public Community createCommunity(CommunityRequest communityRequest) throws Exception {
         // Get authenticated user details
         User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
         UserCommunityRole ownerRole = userCommunityRoleRepository.findByName("OWNER")
                 .orElseThrow(() -> new RuntimeException("Owner role not found"));

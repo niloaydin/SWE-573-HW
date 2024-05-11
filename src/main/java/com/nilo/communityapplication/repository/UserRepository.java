@@ -17,4 +17,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.communities")
     List<User> findAllWithCommunities();
 
+    User findByUsername(String username);
 }

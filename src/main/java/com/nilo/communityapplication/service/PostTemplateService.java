@@ -1,6 +1,7 @@
 package com.nilo.communityapplication.service;
 
 import com.nilo.communityapplication.controller.PostTemplateController;
+import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.FieldType;
 import com.nilo.communityapplication.model.PostDataField;
@@ -61,29 +62,33 @@ public class PostTemplateService {
     }
 
     @Transactional
-    public PostTemplate createPostTemplate(String templateName, Set<DataFieldRequest> dataFields, Long communityId) {
-        PostTemplate postTemplate = new PostTemplate();
-        postTemplate.setName(templateName);
-        logger.info("datafield request {}", dataFields);
-        Community communityToSaveTemplate = communityRepository.findById(communityId) .orElseThrow(() -> new IllegalArgumentException("Community not found with id: " + communityId));
+    public PostTemplate createPostTemplate(String templateName, Set<DataFieldRequest> dataFields, Long communityId) throws Exception {
+        try {
+            PostTemplate postTemplate = new PostTemplate();
+            postTemplate.setName(templateName);
+            logger.info("datafield request {}", dataFields);
+            Community communityToSaveTemplate = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community not found with id: " + communityId));
 
-        Set<PostDataField> postDataFields = new HashSet<>();
-        if (dataFields != null) {
-            for (DataFieldRequest fieldRequest : dataFields) {
-                PostDataField dataField = new PostDataField();
-                dataField.setName(fieldRequest.getName());
-                dataField.setType(mapFieldType(fieldRequest.getType()));
-                dataField.setRequired(fieldRequest.isRequired());
-                dataField.setPostTemplate(postTemplate);
-                postDataFieldRepository.save(dataField);
-                postDataFields.add(dataField);
+            Set<PostDataField> postDataFields = new HashSet<>();
+            if (dataFields != null) {
+                for (DataFieldRequest fieldRequest : dataFields) {
+                    PostDataField dataField = new PostDataField();
+                    dataField.setName(fieldRequest.getName());
+                    dataField.setType(mapFieldType(fieldRequest.getType()));
+                    dataField.setRequired(fieldRequest.isRequired());
+                    dataField.setPostTemplate(postTemplate);
+                    postDataFieldRepository.save(dataField);
+                    postDataFields.add(dataField);
+                }
             }
-        }
-        logger.info("post data fields  {}", postDataFields);
-        postTemplate.setDatafields(postDataFields);
-        postTemplate.setCommunity(communityToSaveTemplate);
+            logger.info("post data fields  {}", postDataFields);
+            postTemplate.setDatafields(postDataFields);
+            postTemplate.setCommunity(communityToSaveTemplate);
 
-        return postTemplateRepository.save(postTemplate);
+            return postTemplateRepository.save(postTemplate);
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
     }
 
     private String mapFieldType(FieldType fieldType) {

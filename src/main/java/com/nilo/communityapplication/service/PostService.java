@@ -3,6 +3,7 @@ package com.nilo.communityapplication.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
 import com.nilo.communityapplication.requests.PostCreationRequest;
@@ -125,51 +126,59 @@ public class PostService {
     }
 
     public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // Fetch community by ID
-        Community community = communityRepository.findById(communityId)
-                .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        PostTemplate template;
-        if (templateId !=null) {
-        template=postTemplateRepository.findById(templateId)
-                    .orElseThrow(ChangeSetPersister.NotFoundException::new);
-        } else {
-            template = postTemplateRepository.findByName("Default Template");
-        }
-
-        validateRequestData(template, requestData);
-
-        Post post = new Post();
-        post.setCommunity(community);
-        post.setTemplate(template);
-        post.setUser(user);
-        post.setCreatedAt(LocalDateTime.now());
-        post=postRepository.save(post);
-        Set<PostDataField> dataField = template.getDatafields();
-
-
-
-        for(Map.Entry<String,String> entry: requestData.entrySet()){
-            for(PostDataField mahmut: dataField){
-                if(entry.getKey().equals(mahmut.getName())){
-                    PostFieldValue value = new PostFieldValue();
-                    PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
-                    key.setPostId(post.getId());
-                    key.setDataFieldId(mahmut.getId());
-                    value.setId(key);
-                    value.setPostDataField(mahmut);
-                    value.setPost(post);
-                    value.setValue(entry.getValue());
-                    postFieldValueRepository.save(value);
-
-
-                }
+            // Fetch community by ID
+            Community community = communityRepository.findById(communityId)
+                    .orElseThrow(() ->new NotFoundException("Community not found with ID: " + communityId));
+            PostTemplate template;
+            if (templateId != null) {
+                template = postTemplateRepository.findById(templateId)
+                        .orElseThrow(() ->new NotFoundException("Post template not found with ID: " + templateId));
+            } else {
+                template = postTemplateRepository.findByName("Default Template");
             }
-        }
 
-        return post;
+            validateRequestData(template, requestData);
+
+            Post post = new Post();
+            post.setCommunity(community);
+            post.setTemplate(template);
+            post.setUser(user);
+            post.setCreatedAt(LocalDateTime.now());
+            post = postRepository.save(post);
+            Set<PostDataField> dataField = template.getDatafields();
+
+
+            for (Map.Entry<String, String> entry : requestData.entrySet()) {
+                for (PostDataField mahmut : dataField) {
+                    if (entry.getKey().equals(mahmut.getName())) {
+                        PostFieldValue value = new PostFieldValue();
+                        PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
+                        key.setPostId(post.getId());
+                        key.setDataFieldId(mahmut.getId());
+                        value.setId(key);
+                        value.setPostDataField(mahmut);
+                        value.setPost(post);
+                        value.setValue(entry.getValue());
+                        postFieldValueRepository.save(value);
+
+
+                    }
+                }
+
+
+
+            }
+            return post;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
     }
+
+
     private void validateRequestData(PostTemplate template, Map<String, String> requestData) throws Exception {
         Set<PostDataField> dataFields = template.getDatafields();
         for (PostDataField field : dataFields) {

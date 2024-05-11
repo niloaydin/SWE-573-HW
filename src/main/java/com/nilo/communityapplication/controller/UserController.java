@@ -25,6 +25,13 @@ public class UserController {
             return userService.getAllUsers();
 
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<User> getUserProfile() {
+        // Retrieve logged-in user's profile
+        User currentUser = userService.getCurrentUser();
+        return ResponseEntity.ok(currentUser);
+    }
     @GetMapping("/user_communities")
     public ResponseEntity<List<User>> getAllUsersWithCommunities() {
         List<User> users = userService.getAllUsersWithCommunities();
