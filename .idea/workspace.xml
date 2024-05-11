@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="add cors config" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="issue19-create-repository--service--controller-for-post-posttype" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2f6YWAeDYQa1xRdMjcfgb3dO8iZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nilayaydin/Downloads/community-application&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;826720f31ad4ed938aaf8b86baa3f1f5&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.nilo.communityapplication.service" />
+      <recent name="com.nilo.communityapplication.model" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Server" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.nilo.communityapplication.mapper" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.CommunityApplication">
+    <configuration name="page.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="src/app/page.js" working-dir="$PROJECT_DIR$/client">
+      <method v="2" />
+    </configuration>
+    <configuration name="CommunityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="community-application" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nilo.communityapplication.CommunityApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.page.js" />
+      <item itemvalue="Spring Boot.CommunityApplication" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="" />
+      <created>1713123025174</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713123025174</updated>
+      <workItem from="1713123026933" duration="388000" />
+      <workItem from="1713123488391" duration="5641000" />
+      <workItem from="1713861105878" duration="42732000" />
+      <workItem from="1714074673364" duration="1476000" />
+      <workItem from="1714076226143" duration="1538000" />
+      <workItem from="1714077825605" duration="3536000" />
+      <workItem from="1714126772878" duration="72640000" />
+      <workItem from="1714407060344" duration="1143000" />
+      <workItem from="1714594975436" duration="4444000" />
+      <workItem from="1715157667966" duration="11585000" />
+      <workItem from="1715233385182" duration="7862000" />
+      <workItem from="1715446695780" duration="292000" />
+      <workItem from="1715448752659" duration="83000" />
+      <workItem from="1715452080897" duration="5118000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix authentication issues">
+      <created>1713888782406</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713888782406</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add create community functionality">
+      <created>1713888808224</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713888808224</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add current User method">
+      <created>1713904293570</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713904293570</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add current User method">
+      <created>1713904556074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713904556074</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add getUserById method">
+      <created>1713906572052</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1713906572052</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add getCommunityById method">
+      <created>1713906582411</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713906582411</updated>
+    </task>
+    <task id="LOCAL-00007" summary="create getAllCommunities method">
+      <created>1713907082414</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1713907082414</updated>
+    </task>
+    <task id="LOCAL-00008" summary="change db setting">
+      <created>1714029296900</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1714029296900</updated>
+    </task>
+    <task id="LOCAL-00009" summary="join community functionality, but not working">
+      <created>1714029317807</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1714029317807</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add dto and mapper but not working">
+      <created>1714079275480</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1714079275480</updated>
+    </task>
+    <task id="LOCAL-00011" summary="change models for user, community, and role. Create join Community endpoint">
+      <created>1714143963377</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1714143963377</updated>
+    </task>
+    <task id="LOCAL-00012" summary="save the roles to db at the initialization">
+      <created>1714156131061</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1714156131061</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add jpa query example">
+      <created>1714156152808</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1714156152808</updated>
+    </task>
+    <task id="LOCAL-00014" summary="create posttemplate and posttemplatefields entites, servcice, controller and repository">
+      <created>1714249962381</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1714249962381</updated>
+    </task>
+    <task id="LOCAL-00015" summary="create post but not working correctly">
+      <created>1714261993009</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1714261993009</updated>
+    </task>
+    <task id="LOCAL-00016" summary="create posts">
+      <created>1714316768065</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1714316768065</updated>
+    </task>
+    <task id="LOCAL-00017" summary="create post completed and add swagger">
+      <created>1714361633016</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1714361633016</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add production db">
+      <created>1714382576496</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1714382576497</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add production db">
+      <created>1714382866314</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1714382866315</updated>
+    </task>
+    <task id="LOCAL-00020" summary="update docker file">
+      <created>1714385381313</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1714385381314</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add prod and dev database config">
+      <created>1715168495737</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1715168495737</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix the issue with endpoint path">
+      <created>1715169640696</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1715169640696</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add exception handling so far">
+      <created>1715232991103</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1715232991103</updated>
+    </task>
+    <task id="LOCAL-00024" summary="create get a single post in a community endpoint">
+      <created>1715440763687</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1715440763688</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix endpoint">
+      <created>1715442365903</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1715442365903</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add frontend to repo">
+      <created>1715445398801</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1715445398801</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix css">
+      <created>1715447008632</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1715447008632</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add cors config">
+      <created>1715462055945</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1715462055947</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="add create community functionality" />
+    <MESSAGE value="add current User method" />
+    <MESSAGE value="add getUserById method" />
+    <MESSAGE value="add getCommunityById method" />
+    <MESSAGE value="create getAllCommunities method" />
+    <MESSAGE value="change db setting" />
+    <MESSAGE value="join community functionality, but not working" />
+    <MESSAGE value="add dto and mapper but not working" />
+    <MESSAGE value="change models for user, community, and role. Create join Community endpoint" />
+    <MESSAGE value="save the roles to db at the initialization" />
+    <MESSAGE value="add jpa query example" />
+    <MESSAGE value="create posttemplate and posttemplatefields entites, servcice, controller and repository" />
+    <MESSAGE value="create post but not working correctly" />
+    <MESSAGE value="create posts" />
+    <MESSAGE value="create post completed and add swagger" />
+    <MESSAGE value="add production db" />
+    <MESSAGE value="update docker file" />
+    <MESSAGE value="add prod and dev database config" />
+    <MESSAGE value="fix the issue with endpoint path" />
+    <MESSAGE value="add exception handling so far" />
+    <MESSAGE value="create get a single post in a community endpoint" />
+    <MESSAGE value="fix endpoint" />
+    <MESSAGE value="add frontend to repo" />
+    <MESSAGE value="fix css" />
+    <MESSAGE value="add cors config" />
+    <option name="LAST_COMMIT_MESSAGE" value="add cors config" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/CommunityService.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostTemplateController.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostTemplateController.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>187</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>188</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>192</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
+          <line>51</line>
+          <properties class="com.nilo.communityapplication.controller.PostController">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
