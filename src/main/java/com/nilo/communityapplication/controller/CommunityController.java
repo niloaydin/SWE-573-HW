@@ -11,9 +11,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommunityController {
     private final CommunityService communityService;
-    private final PostRepository postRepository;
 
     @PostMapping
     @Operation(summary = "Creates new community", description = "Get the info from the request body and save to the database.")
@@ -77,4 +78,12 @@ public class CommunityController {
         List<Post> posts = communityService.getPostsInCommunity(communityId);
         return ResponseEntity.ok(posts);
     }
+
+    @GetMapping("/{communityId/posts/{postId}")
+    public ResponseEntity<Post> singlePostInCommunity(@PathVariable Long communityId, @PathVariable Long postId){
+        Post singlePost = communityService.getSinglePostInCommunity(communityId, postId);
+        return ResponseEntity.ok(singlePost);
+    }
+
+
 }

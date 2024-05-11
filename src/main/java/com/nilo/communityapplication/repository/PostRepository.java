@@ -14,4 +14,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "LEFT JOIN FETCH t.datafields " +
             "WHERE c.id = :communityId")
     List<Post> findByCommunityIdWithFields(@Param("communityId") Long communityId);
+
+    Post findPostById(Long id);
+
+    Post findByIdAndCommunityId(Long postId, Long communityId);
 }

@@ -1,26 +1,17 @@
 package com.nilo.communityapplication.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
-import com.nilo.communityapplication.requests.PostCreationRequest;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -191,5 +182,14 @@ public class PostService {
     @Transactional
     public List<Post> findAll(){
         return postRepository.findAll();
+    }
+
+    public Post findPostById(Long id){
+       Post singlePost = postRepository.findPostById(id);
+        if (singlePost == null){
+            new NotFoundException("Post not found with ID: " + id);
+        }
+
+        return singlePost;
     }
 }

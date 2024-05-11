@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleAccessDenied(AccessDeniedException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
-    @ExceptionHandler(Exception.class)
+/*    @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecuritException(Exception ex){
         ProblemDetail error= null;
         if(ex instanceof BadCredentialsException){
@@ -61,5 +61,13 @@ public class GlobalExceptionHandler {
             error.setProperty("access_denied_reason","Authentication Needed!");
         }
         return error;
+    }*/
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(Exception ex){
+        // Log the exception
+        ex.printStackTrace();
+        // Return a response entity with a generic error message
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
     }
 }

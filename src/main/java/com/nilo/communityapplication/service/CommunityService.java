@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CommunityService {
+public class  CommunityService {
 
     private final CommunityRepository communityRepository;
     private final UserRepository userRepository;
@@ -130,6 +130,10 @@ public class CommunityService {
 
     public List<Post> getPostsInCommunity(Long communityId) {
         return postRepository.findByCommunityIdWithFields(communityId);
+    }
+
+    public Post getSinglePostInCommunity(Long postId, Long communityId){
+        return postRepository.findByIdAndCommunityId(postId,communityId);
     }
 }
 
