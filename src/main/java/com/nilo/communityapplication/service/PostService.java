@@ -4,6 +4,7 @@ import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedExcept
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
+import com.nilo.communityapplication.utils.BasicAuthorizationUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -21,9 +22,10 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
-private final UserService userService;
+    private final UserService userService;
     public final PostTemplateRepository postTemplateRepository;
     private final PostFieldValueRepository postFieldValueRepository;
+    private final BasicAuthorizationUtil authUtil;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
@@ -36,7 +38,7 @@ private final UserService userService;
     @Transactional
     public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
         try {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = authUtil.getCurrentUser();
 
             // Fetch community by ID
             Community community = communityRepository.findById(communityId)
@@ -97,16 +99,15 @@ private final UserService userService;
 
     @Transactional
     public Post editPost(Long communityId, Long id, Map<String, String> requestData) throws Exception {
-        User currentUser = userService.getCurrentUser();
+
+        User currentUser = authUtil.getCurrentUser();
         Post post = postRepository.findPostById(id);
 
         if(post == null){
             throw new NotFoundException("Post not found with ID: " + id);
         }
 
-        if (!post.getUser().equals(currentUser)){
-            throw new NotAuthorizedException("You are not authorized to edit this post!");
-        }
+        authUtil.isCurrentUserEqualsToActionUser(post.getUser());
 
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() ->new NotFoundException("Community not found with ID: " + communityId));

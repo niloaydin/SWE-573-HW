@@ -2,6 +2,7 @@ package com.nilo.communityapplication.controller;
 
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.service.UserService;
+import com.nilo.communityapplication.utils.BasicAuthorizationUtil;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final BasicAuthorizationUtil authUtil;
 
     @GetMapping
     public List<User> getAllUserMethod(){
@@ -29,7 +31,7 @@ public class UserController {
     @GetMapping("/profile")
     public ResponseEntity<User> getUserProfile() {
         // Retrieve logged-in user's profile
-        User currentUser = userService.getCurrentUser();
+        User currentUser = authUtil.getCurrentUser();
         return ResponseEntity.ok(currentUser);
     }
     @GetMapping("/user_communities")

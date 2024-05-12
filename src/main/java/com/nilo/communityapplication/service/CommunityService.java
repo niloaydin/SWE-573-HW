@@ -6,6 +6,7 @@ import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
 import com.nilo.communityapplication.requests.CommunityRequest;
+import com.nilo.communityapplication.utils.BasicAuthorizationUtil;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -31,12 +32,13 @@ public class  CommunityService {
     private final UserCommunityRoleRepository userCommunityRoleRepository;
 
     private final PostRepository postRepository;
+    private final BasicAuthorizationUtil authUtil;
     private static final Logger logger = LoggerFactory.getLogger(CommunityService.class);
 
     @Transactional
     public Community createCommunity(CommunityRequest communityRequest) throws Exception {
         // Get authenticated user details
-        User userDetails = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userDetails = authUtil.getCurrentUser();
 
 
         UserCommunityRole ownerRole = userCommunityRoleRepository.findByName("OWNER")
