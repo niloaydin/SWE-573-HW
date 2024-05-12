@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="fix bug for creating multiple communities">
+    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="idea file">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/WrongInputTypeException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/UserJoinedCommunities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/UserJoinedCommunities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/FieldType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/FieldType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +161,7 @@
       <workItem from="1715446695780" duration="292000" />
       <workItem from="1715448752659" duration="83000" />
       <workItem from="1715452080897" duration="5118000" />
-      <workItem from="1715499663681" duration="1254000" />
+      <workItem from="1715499663681" duration="10355000" />
     </task>
     <task id="LOCAL-00001" summary="fix authentication issues">
       <created>1713888782406</created>
@@ -353,7 +359,21 @@
       <option name="project" value="LOCAL" />
       <updated>1715462055947</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fix bug for creating multiple communities">
+      <created>1715502690938</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1715502690938</updated>
+    </task>
+    <task id="LOCAL-00030" summary="idea file">
+      <created>1715502713959</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1715502713959</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -372,7 +392,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add current User method" />
     <MESSAGE value="add getUserById method" />
     <MESSAGE value="add getCommunityById method" />
     <MESSAGE value="create getAllCommunities method" />
@@ -397,7 +416,8 @@
     <MESSAGE value="fix css" />
     <MESSAGE value="add cors config" />
     <MESSAGE value="fix bug for creating multiple communities" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug for creating multiple communities" />
+    <MESSAGE value="idea file" />
+    <option name="LAST_COMMIT_MESSAGE" value="idea file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -428,24 +448,74 @@
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>187</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>188</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>192</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
           <line>53</line>
           <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>123</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>179</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>154</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>149</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
