@@ -4,65 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="add cors config">
+    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="fix bug for creating multiple communities">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/CommunityApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/CommunityApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/AuthenticationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/AuthenticationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/AuthenticationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/AuthenticationResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/RegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/ApplicationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/config/JWTAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/JWTAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/config/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/auth/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/CommunityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/PostTemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostTemplateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/controller/demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/globalExceptionHandling/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/globalExceptionHandling/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/NotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/Community.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/Community.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/CommunityJoinCompositeKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/CommunityJoinCompositeKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/FieldType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/FieldType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/PostDataField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/PostDataField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/PostFieldValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/PostFieldValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/PostFieldValueCompositeKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/PostFieldValueCompositeKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/PostTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/PostTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/UserCommunityRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/UserCommunityRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/model/UserJoinedCommunities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/UserJoinedCommunities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/CommunityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/CommunityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/PostDataFieldRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/PostDataFieldRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/PostFieldValueRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/PostFieldValueRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/PostRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/PostTemplateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/PostTemplateRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/UserCommunityRoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/UserCommunityRoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/UserJoinedCommunityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/UserJoinedCommunityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/requests/CommunityRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/requests/CommunityRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/requests/DataFieldRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/requests/DataFieldRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/requests/PostCreationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/requests/PostCreationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/requests/PostTemplateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/requests/PostTemplateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/RoleInitializationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/RoleInitializationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/nilo/communityapplication/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/test/java/com/nilo/communityapplication/CommunityApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/nilo/communityapplication/CommunityApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/UserJoinedCommunities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/UserJoinedCommunities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +155,7 @@
       <workItem from="1715446695780" duration="292000" />
       <workItem from="1715448752659" duration="83000" />
       <workItem from="1715452080897" duration="5118000" />
-      <workItem from="1715499663681" duration="306000" />
+      <workItem from="1715499663681" duration="1254000" />
     </task>
     <task id="LOCAL-00001" summary="fix authentication issues">
       <created>1713888782406</created>
@@ -427,7 +372,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add create community functionality" />
     <MESSAGE value="add current User method" />
     <MESSAGE value="add getUserById method" />
     <MESSAGE value="add getCommunityById method" />
@@ -452,7 +396,8 @@
     <MESSAGE value="add frontend to repo" />
     <MESSAGE value="fix css" />
     <MESSAGE value="add cors config" />
-    <option name="LAST_COMMIT_MESSAGE" value="add cors config" />
+    <MESSAGE value="fix bug for creating multiple communities" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug for creating multiple communities" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
