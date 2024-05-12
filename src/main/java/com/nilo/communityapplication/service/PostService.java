@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.service;
 
+import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
@@ -20,12 +21,156 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
-    private final PostDataFieldRepository postDataFieldRepository;
-
+private final UserService userService;
     public final PostTemplateRepository postTemplateRepository;
     private final PostFieldValueRepository postFieldValueRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+
+
+    public List<Post> getPostsByCommunity(Long communityId) {
+
+        return postRepository.findByCommunityIdWithFields(communityId);
+    }
+
+    @Transactional
+    public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
+        try {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            // Fetch community by ID
+            Community community = communityRepository.findById(communityId)
+                    .orElseThrow(() ->new NotFoundException("Community not found with ID: " + communityId));
+            PostTemplate template;
+            if (templateId != null) {
+                template = postTemplateRepository.findById(templateId)
+                        .orElseThrow(() ->new NotFoundException("Post template not found with ID: " + templateId));
+            } else {
+                template = postTemplateRepository.findByName("Default Template");
+            }
+
+            validateRequestData(template, requestData);
+
+            PostDataValueValidator validator = new PostDataValueValidator();
+            if(!validator.validateFieldTypes(template,requestData)){
+                throw  new RuntimeException("Field values does not match with field types!");
+            }
+
+            Post post = new Post();
+            post.setCommunity(community);
+            post.setTemplate(template);
+            post.setUser(user);
+            post.setCreatedAt(LocalDateTime.now());
+            post = postRepository.save(post);
+            return getPostFieldsandFillPostValues(requestData, post, template);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
+    private void validateRequestData(PostTemplate template, Map<String, String> requestData) throws Exception {
+        Set<PostDataField> dataFields = template.getDatafields();
+        for (PostDataField field : dataFields) {
+            String fieldName = field.getName();
+            if (field.isRequired() && !requestData.containsKey(fieldName)) {
+                throw new Exception("Field '" + fieldName + "' is required");
+            }
+        }
+    }
+
+
+    @Transactional
+    public List<Post> findAll(){
+        return postRepository.findAll();
+    }
+
+    public Post findPostById(Long id){
+       Post singlePost = postRepository.findPostById(id);
+        if (singlePost == null){
+            new NotFoundException("Post not found with ID: " + id);
+        }
+
+        return singlePost;
+    }
+
+    @Transactional
+    public Post editPost(Long communityId, Long id, Map<String, String> requestData) throws Exception {
+        User currentUser = userService.getCurrentUser();
+        Post post = postRepository.findPostById(id);
+
+        if(post == null){
+            throw new NotFoundException("Post not found with ID: " + id);
+        }
+
+        if (!post.getUser().equals(currentUser)){
+            throw new NotAuthorizedException("You are not authorized to edit this post!");
+        }
+
+        Community community = communityRepository.findById(communityId)
+                .orElseThrow(() ->new NotFoundException("Community not found with ID: " + communityId));
+
+
+
+        PostTemplate template = post.getTemplate();
+
+        validateRequestData(template, requestData);
+
+        PostDataValueValidator validator = new PostDataValueValidator();
+
+        if(!validator.validateFieldTypes(template,requestData)){
+            throw new RuntimeException("Field values does not match with field types!");
+        }
+
+        Set<PostDataField> dataFields = template.getDatafields();
+        for(PostDataField field : dataFields){
+            String fieldName = field.getName();
+            String fieldValue = requestData.get(fieldName);
+            PostFieldValue existingFieldValue = post.getFieldValues().stream().filter(value -> value.getPostDataField().equals(field)).findFirst().orElse(null);
+
+            if(!fieldValue.equals(existingFieldValue.getValue())) {
+
+                if (existingFieldValue != null) {
+                    existingFieldValue.setValue(fieldValue);
+                    postFieldValueRepository.save(existingFieldValue);
+                } else {
+                    throw new RuntimeException("Inconsistent data: Missing value for field " + fieldName);
+                }
+            }
+        }
+        return post;
+
+    }
+
+    private Post getPostFieldsandFillPostValues(Map<String, String> requestData, Post post, PostTemplate template) {
+        Set<PostDataField> dataField = template.getDatafields();
+
+        Map<String, PostDataField> fieldMap = new HashMap<>();
+        for (PostDataField field : dataField) {
+            fieldMap.put(field.getName(), field);
+        }
+
+        for (Map.Entry<String, String> entry : requestData.entrySet()) {
+            String fieldName = entry.getKey();
+            String value = entry.getValue();
+            PostDataField field = fieldMap.get(fieldName);
+            if (field != null) {
+                PostFieldValue postValue = new PostFieldValue();
+                PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
+                key.setPostId(post.getId());
+                key.setDataFieldId(field.getId());
+                postValue.setId(key);
+                postValue.setPostDataField(field);
+                postValue.setPost(post);
+                postValue.setValue(value);
+                postFieldValueRepository.save(postValue);
+            }
+        }
+        return post;
+    }
+}
+
 
 /*    public Post createPost(PostCreationRequest request) {
         // Fetch user, community, and template from repositories
@@ -111,93 +256,3 @@ public class PostService {
     }
 */
 
-    public List<Post> getPostsByCommunity(Long communityId) {
-
-        return postRepository.findByCommunityIdWithFields(communityId);
-    }
-
-    public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
-        try {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-            // Fetch community by ID
-            Community community = communityRepository.findById(communityId)
-                    .orElseThrow(() ->new NotFoundException("Community not found with ID: " + communityId));
-            PostTemplate template;
-            if (templateId != null) {
-                template = postTemplateRepository.findById(templateId)
-                        .orElseThrow(() ->new NotFoundException("Post template not found with ID: " + templateId));
-            } else {
-                template = postTemplateRepository.findByName("Default Template");
-            }
-
-            validateRequestData(template, requestData);
-
-            PostDataValueValidator validator = new PostDataValueValidator();
-            if(!validator.validateFieldTypes(template,requestData)){
-                throw  new RuntimeException("Field values does not match with field types!");
-            }
-
-            Post post = new Post();
-            post.setCommunity(community);
-            post.setTemplate(template);
-            post.setUser(user);
-            post.setCreatedAt(LocalDateTime.now());
-            post = postRepository.save(post);
-            Set<PostDataField> dataField = template.getDatafields();
-
-
-            Map<String, PostDataField> fieldMap = new HashMap<>();
-            for (PostDataField field : dataField) {
-                fieldMap.put(field.getName(), field);
-            }
-
-            for (Map.Entry<String, String> entry : requestData.entrySet()) {
-                String fieldName = entry.getKey();
-                String value = entry.getValue();
-                PostDataField field = fieldMap.get(fieldName);
-                if (field != null) {
-                    PostFieldValue postValue = new PostFieldValue();
-                    PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
-                    key.setPostId(post.getId());
-                    key.setDataFieldId(field.getId());
-                    postValue.setId(key);
-                    postValue.setPostDataField(field);
-                    postValue.setPost(post);
-                    postValue.setValue(value);
-                    postFieldValueRepository.save(postValue);
-                }
-            }
-            return post;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new Exception(e.getMessage());
-        }
-    }
-
-
-    private void validateRequestData(PostTemplate template, Map<String, String> requestData) throws Exception {
-        Set<PostDataField> dataFields = template.getDatafields();
-        for (PostDataField field : dataFields) {
-            String fieldName = field.getName();
-            if (field.isRequired() && !requestData.containsKey(fieldName)) {
-                throw new Exception("Field '" + fieldName + "' is required");
-            }
-        }
-    }
-
-
-    @Transactional
-    public List<Post> findAll(){
-        return postRepository.findAll();
-    }
-
-    public Post findPostById(Long id){
-       Post singlePost = postRepository.findPostById(id);
-        if (singlePost == null){
-            new NotFoundException("Post not found with ID: " + id);
-        }
-
-        return singlePost;
-    }
-}
