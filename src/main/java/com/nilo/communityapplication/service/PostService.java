@@ -1,5 +1,7 @@
 package com.nilo.communityapplication.service;
 
+import com.nilo.communityapplication.DTO.PostFieldDTO;
+import com.nilo.communityapplication.DTO.PostInCommunityDTO;
 import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
@@ -169,6 +171,45 @@ public class PostService {
             }
         }
         return post;
+    }
+
+
+    public List<PostInCommunityDTO> getPostsInCommunity(Long communityId) {
+
+        List<Post> posts = postRepository.findByCommunityId(communityId);
+
+
+        List<PostInCommunityDTO> postDTOs = new ArrayList<>();
+
+
+        for (Post post : posts) {
+
+            PostInCommunityDTO postDTO = new PostInCommunityDTO();
+            postDTO.setId(post.getId());
+            postDTO.setCreatedAt(post.getCreatedAt());
+
+
+            List<PostFieldDTO> fieldDTOs = new ArrayList<>();
+
+
+            for (PostFieldValue fieldValue : post.getFieldValues()) {
+                // Create a DTO for the current field value
+                PostFieldDTO fieldDTO = new PostFieldDTO();
+                fieldDTO.setFieldName(fieldValue.getPostDataField().getName());
+                fieldDTO.setFieldValue(fieldValue.getValue());
+
+                // Add the field DTO to the list
+                fieldDTOs.add(fieldDTO);
+            }
+
+
+            postDTO.setFieldDTOs(fieldDTOs);
+
+
+            postDTOs.add(postDTO);
+        }
+
+        return postDTOs;
     }
 }
 

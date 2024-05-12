@@ -15,7 +15,7 @@ public class UserJoinedCommunityService {
 
     private final UserJoinedCommunityRepository userJoinedCommunityRepository;
     public List<UserInCommunityDTO> findUsersWithRoleByCommunityId(Long communityId) {
-        // Fetch UserJoinedCommunities entities by communityId
+
         List<UserJoinedCommunities> userJoinedCommunitiesList = userJoinedCommunityRepository.findByCommunityId(communityId);
 
         // Map UserJoinedCommunities entities to UserInCommunityDTO objects
