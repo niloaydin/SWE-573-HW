@@ -97,6 +97,10 @@ public class PostTemplateService {
                 return "String";
             case NUMBER:
                 return "Integer";
+            case DATE:
+                return "Date";
+            case URL:
+                return "URL";
             default:
                 throw new IllegalArgumentException("Unsupported field type: " + fieldType);
         }
