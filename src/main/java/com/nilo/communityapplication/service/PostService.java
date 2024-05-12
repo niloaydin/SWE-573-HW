@@ -133,6 +133,11 @@ public class PostService {
 
             validateRequestData(template, requestData);
 
+            PostDataValueValidator validator = new PostDataValueValidator();
+            if(!validator.validateFieldTypes(template,requestData)){
+                throw  new RuntimeException("Field values does not match with field types!");
+            }
+
             Post post = new Post();
             post.setCommunity(community);
             post.setTemplate(template);
@@ -142,25 +147,26 @@ public class PostService {
             Set<PostDataField> dataField = template.getDatafields();
 
 
+            Map<String, PostDataField> fieldMap = new HashMap<>();
+            for (PostDataField field : dataField) {
+                fieldMap.put(field.getName(), field);
+            }
+
             for (Map.Entry<String, String> entry : requestData.entrySet()) {
-                for (PostDataField mahmut : dataField) {
-                    if (entry.getKey().equals(mahmut.getName())) {
-                        PostFieldValue value = new PostFieldValue();
-                        PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
-                        key.setPostId(post.getId());
-                        key.setDataFieldId(mahmut.getId());
-                        value.setId(key);
-                        value.setPostDataField(mahmut);
-                        value.setPost(post);
-                        value.setValue(entry.getValue());
-                        postFieldValueRepository.save(value);
-
-
-                    }
+                String fieldName = entry.getKey();
+                String value = entry.getValue();
+                PostDataField field = fieldMap.get(fieldName);
+                if (field != null) {
+                    PostFieldValue postValue = new PostFieldValue();
+                    PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
+                    key.setPostId(post.getId());
+                    key.setDataFieldId(field.getId());
+                    postValue.setId(key);
+                    postValue.setPostDataField(field);
+                    postValue.setPost(post);
+                    postValue.setValue(value);
+                    postFieldValueRepository.save(postValue);
                 }
-
-
-
             }
             return post;
         } catch (Exception e) {
@@ -179,6 +185,8 @@ public class PostService {
             }
         }
     }
+
+
     @Transactional
     public List<Post> findAll(){
         return postRepository.findAll();
