@@ -1,11 +1,15 @@
 package com.nilo.communityapplication.controller;
 
+import com.nilo.communityapplication.DTO.UserInCommunityDTO;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.Post;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.PostRepository;
+import com.nilo.communityapplication.repository.UserJoinedCommunityRepository;
 import com.nilo.communityapplication.requests.CommunityRequest;
 import com.nilo.communityapplication.service.CommunityService;
+import com.nilo.communityapplication.service.UserJoinedCommunityService;
+import com.nilo.communityapplication.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,6 +31,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommunityController {
     private final CommunityService communityService;
+    private final UserJoinedCommunityService userJoinedCommunityService;
 
     @PostMapping
     @Operation(summary = "Creates new community", description = "Get the info from the request body and save to the database.")
@@ -83,6 +88,15 @@ public class CommunityController {
     public ResponseEntity<Post> singlePostInCommunity(@PathVariable Long communityId, @PathVariable Long postId){
         Post singlePost = communityService.getSinglePostInCommunity(communityId, postId);
         return ResponseEntity.ok(singlePost);
+    }
+
+    @GetMapping("/{communityId}/users")
+    public ResponseEntity<List<UserInCommunityDTO>> getUsersInCommunity(@PathVariable Long communityId) {
+        // Query the database for users in the specified community
+        List<UserInCommunityDTO> users = userJoinedCommunityService.findUsersWithRoleByCommunityId(communityId);
+
+        // Return the users as a response
+        return ResponseEntity.ok(users);
     }
 
 
