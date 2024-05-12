@@ -30,7 +30,7 @@ public class UserJoinedCommunities {
     @JsonBackReference("community-join")
     private Community community;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="role_id")
     private UserCommunityRole role;
 

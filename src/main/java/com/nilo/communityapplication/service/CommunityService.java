@@ -94,9 +94,8 @@ public class  CommunityService {
 
             // Create a new UserJoinedCommunities entity
             UserJoinedCommunities userJoinedCommunities = new UserJoinedCommunities();
-            UserCommunityRole userRole = new UserCommunityRole();
-            userRole.setName("user");
-            userCommunityRoleRepository.save(userRole);
+            UserCommunityRole userRole = userCommunityRoleRepository.findByName("USER")
+                    .orElseThrow(() -> new RuntimeException("User role not found"));
 
             // Create the composite key
             CommunityJoinCompositeKey key = new CommunityJoinCompositeKey();
@@ -113,13 +112,9 @@ public class  CommunityService {
             userJoinedCommunityRepository.save(userJoinedCommunities);
 
         } catch (Exception e){
-            // Log the exception for debugging purposes
             logger.error("An error occurred while joining the community: {}", e.getMessage());
-
-            // Rethrow the exception or handle it as needed
             throw e;
         }
-
 
 
     }
