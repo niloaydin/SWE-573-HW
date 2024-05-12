@@ -26,6 +26,12 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(exception.getMessage());
     }
+    @ExceptionHandler({NotAuthorizedException.class})
+    public ResponseEntity<Object> handleNotAuthorizedException(NotAuthorizedException exception) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(exception.getMessage());
+    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
@@ -74,6 +80,6 @@ public class GlobalExceptionHandler {
         // Log the exception
         ex.printStackTrace();
         // Return a response entity with a generic error message
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

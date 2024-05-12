@@ -53,5 +53,13 @@ public class PostController {
         Post singlePost = postService.findPostById(id);
         return ResponseEntity.ok(singlePost);
     }
+
+    @PutMapping("{communityId}/post/{id}")
+    public ResponseEntity<Post> editSinglePost(@PathVariable Long id, @PathVariable Long communityId, @RequestBody Map<String, String> requestData) throws Exception {
+
+            Post editPost = postService.editPost(communityId, id, requestData);
+            return ResponseEntity.ok(editPost);
+
+    }
 }
 
