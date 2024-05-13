@@ -37,10 +37,6 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
-    public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return userRepository.findByUsername(username);
-    }
+
 
 }

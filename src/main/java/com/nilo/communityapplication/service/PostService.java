@@ -1,9 +1,12 @@
 package com.nilo.communityapplication.service;
 
+import com.nilo.communityapplication.DTO.PostFieldDTO;
+import com.nilo.communityapplication.DTO.PostInCommunityDTO;
 import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
+import com.nilo.communityapplication.utils.BasicAuthorizationUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -21,9 +24,10 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
-private final UserService userService;
+    private final UserService userService;
     public final PostTemplateRepository postTemplateRepository;
     private final PostFieldValueRepository postFieldValueRepository;
+    private final BasicAuthorizationUtil authUtil;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
@@ -36,7 +40,7 @@ private final UserService userService;
     @Transactional
     public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
         try {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = authUtil.getCurrentUser();
 
             // Fetch community by ID
             Community community = communityRepository.findById(communityId)
@@ -97,16 +101,15 @@ private final UserService userService;
 
     @Transactional
     public Post editPost(Long communityId, Long id, Map<String, String> requestData) throws Exception {
-        User currentUser = userService.getCurrentUser();
+
+        User currentUser = authUtil.getCurrentUser();
         Post post = postRepository.findPostById(id);
 
         if(post == null){
             throw new NotFoundException("Post not found with ID: " + id);
         }
 
-        if (!post.getUser().equals(currentUser)){
-            throw new NotAuthorizedException("You are not authorized to edit this post!");
-        }
+        authUtil.isCurrentUserEqualsToActionUser(post.getUser());
 
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() ->new NotFoundException("Community not found with ID: " + communityId));
@@ -168,6 +171,45 @@ private final UserService userService;
             }
         }
         return post;
+    }
+
+
+    public List<PostInCommunityDTO> getPostsInCommunity(Long communityId) {
+
+        List<Post> posts = postRepository.findByCommunityId(communityId);
+
+
+        List<PostInCommunityDTO> postDTOs = new ArrayList<>();
+
+
+        for (Post post : posts) {
+
+            PostInCommunityDTO postDTO = new PostInCommunityDTO();
+            postDTO.setId(post.getId());
+            postDTO.setCreatedAt(post.getCreatedAt());
+
+
+            List<PostFieldDTO> fieldDTOs = new ArrayList<>();
+
+
+            for (PostFieldValue fieldValue : post.getFieldValues()) {
+                // Create a DTO for the current field value
+                PostFieldDTO fieldDTO = new PostFieldDTO();
+                fieldDTO.setFieldName(fieldValue.getPostDataField().getName());
+                fieldDTO.setFieldValue(fieldValue.getValue());
+
+                // Add the field DTO to the list
+                fieldDTOs.add(fieldDTO);
+            }
+
+
+            postDTO.setFieldDTOs(fieldDTOs);
+
+
+            postDTOs.add(postDTO);
+        }
+
+        return postDTOs;
     }
 }
 

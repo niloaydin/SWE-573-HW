@@ -1,11 +1,17 @@
 package com.nilo.communityapplication.controller;
 
+import com.nilo.communityapplication.DTO.PostInCommunityDTO;
+import com.nilo.communityapplication.DTO.UserInCommunityDTO;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.Post;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.PostRepository;
+import com.nilo.communityapplication.repository.UserJoinedCommunityRepository;
 import com.nilo.communityapplication.requests.CommunityRequest;
 import com.nilo.communityapplication.service.CommunityService;
+import com.nilo.communityapplication.service.PostService;
+import com.nilo.communityapplication.service.UserJoinedCommunityService;
+import com.nilo.communityapplication.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,6 +33,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CommunityController {
     private final CommunityService communityService;
+    private final UserJoinedCommunityService userJoinedCommunityService;
+    private final PostService postService;
 
     @PostMapping
     @Operation(summary = "Creates new community", description = "Get the info from the request body and save to the database.")
@@ -73,16 +81,31 @@ public class CommunityController {
     }
 
 
-    @GetMapping("/{communityId}/posts")
+/*    @GetMapping("/{communityId}/posts")
     public ResponseEntity<List<Post>> postsInCommunity(@PathVariable Long communityId) {
         List<Post> posts = communityService.getPostsInCommunity(communityId);
         return ResponseEntity.ok(posts);
+    }*/
+
+    @GetMapping("/{communityId}/posts")
+    public ResponseEntity<List<PostInCommunityDTO>> postsInCommunity(@PathVariable Long communityId) {
+        List<PostInCommunityDTO> postDTOs = postService.getPostsInCommunity(communityId);
+        return ResponseEntity.ok(postDTOs);
     }
 
     @GetMapping("/{communityId}/posts/{postId}")
     public ResponseEntity<Post> singlePostInCommunity(@PathVariable Long communityId, @PathVariable Long postId){
         Post singlePost = communityService.getSinglePostInCommunity(communityId, postId);
         return ResponseEntity.ok(singlePost);
+    }
+
+    @GetMapping("/{communityId}/users")
+    public ResponseEntity<List<UserInCommunityDTO>> getUsersInCommunity(@PathVariable Long communityId) {
+        // Query the database for users in the specified community
+        List<UserInCommunityDTO> users = userJoinedCommunityService.findUsersWithRoleByCommunityId(communityId);
+
+        // Return the users as a response
+        return ResponseEntity.ok(users);
     }
 
 
