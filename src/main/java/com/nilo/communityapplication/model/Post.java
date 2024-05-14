@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -50,6 +51,7 @@ public class Post {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JsonManagedReference("post-field-value")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
