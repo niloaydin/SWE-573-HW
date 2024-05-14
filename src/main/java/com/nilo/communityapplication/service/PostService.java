@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post createPost(Long communityId, Long templateId, Map<String, String> requestData) throws Exception {
+    public Post createPost(Long communityId, Long templateId, LinkedHashMap<String, String> requestData) throws Exception {
         try {
             User user = authUtil.getCurrentUser();
 
@@ -73,10 +74,35 @@ public class PostService {
             throw new Exception(e.getMessage());
         }
     }
+    private Post getPostFieldsandFillPostValues(LinkedHashMap<String, String> requestData, Post post, PostTemplate template) {
+        List<PostDataField> dataField = new ArrayList<>(template.getDatafields());
 
+        LinkedHashMap<String, PostDataField> fieldMap = new LinkedHashMap<>();
+        for (PostDataField field : dataField) {
+            fieldMap.put(field.getName(), field);
+        }
+
+        for (Map.Entry<String, String> entry : requestData.entrySet()) {
+            String fieldName = entry.getKey();
+            String value = entry.getValue();
+            PostDataField field = fieldMap.get(fieldName);
+            if (field != null) {
+                PostFieldValue postValue = new PostFieldValue();
+                PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
+                key.setPostId(post.getId());
+                key.setDataFieldId(field.getId());
+                postValue.setId(key);
+                postValue.setPostDataField(field);
+                postValue.setPost(post);
+                postValue.setValue(value);
+                postFieldValueRepository.save(postValue);
+            }
+        }
+        return post;
+    }
 
     private void validateRequestData(PostTemplate template, Map<String, String> requestData) throws Exception {
-        Set<PostDataField> dataFields = template.getDatafields();
+        List<PostDataField> dataFields = template.getDatafields();
         for (PostDataField field : dataFields) {
             String fieldName = field.getName();
             if (field.isRequired() && !requestData.containsKey(fieldName)) {
@@ -127,7 +153,7 @@ public class PostService {
             throw new RuntimeException("Field values does not match with field types!");
         }
 
-        Set<PostDataField> dataFields = template.getDatafields();
+        List<PostDataField> dataFields = template.getDatafields();
         for(PostDataField field : dataFields){
             String fieldName = field.getName();
             String fieldValue = requestData.get(fieldName);
@@ -147,37 +173,11 @@ public class PostService {
 
     }
 
-    private Post getPostFieldsandFillPostValues(Map<String, String> requestData, Post post, PostTemplate template) {
-        Set<PostDataField> dataField = template.getDatafields();
-
-        Map<String, PostDataField> fieldMap = new HashMap<>();
-        for (PostDataField field : dataField) {
-            fieldMap.put(field.getName(), field);
-        }
-
-        for (Map.Entry<String, String> entry : requestData.entrySet()) {
-            String fieldName = entry.getKey();
-            String value = entry.getValue();
-            PostDataField field = fieldMap.get(fieldName);
-            if (field != null) {
-                PostFieldValue postValue = new PostFieldValue();
-                PostFieldValueCompositeKey key = new PostFieldValueCompositeKey();
-                key.setPostId(post.getId());
-                key.setDataFieldId(field.getId());
-                postValue.setId(key);
-                postValue.setPostDataField(field);
-                postValue.setPost(post);
-                postValue.setValue(value);
-                postFieldValueRepository.save(postValue);
-            }
-        }
-        return post;
-    }
-
 
     public List<PostInCommunityDTO> getPostsInCommunity(Long communityId) {
 
         List<Post> posts = postRepository.findByCommunityId(communityId);
+
 
 
 
@@ -188,16 +188,17 @@ public class PostService {
 
             UserInCommunityDTO userDTO = new UserInCommunityDTO();
 
+
             PostInCommunityDTO postDTO = new PostInCommunityDTO();
             postDTO.setId(post.getId());
             postDTO.setCreatedAt(post.getCreatedAt());
-            User user = post.getUser();
-            userDTO.setUserId(user.getId());
-            userDTO.setUsername(user.getUsername());
-            userDTO.setFirstName(user.getFirstName());
-            userDTO.setLastName(user.getLastName());
+            User postUser = post.getUser();
+            userDTO.setUserId(postUser.getId());
+            userDTO.setUsername(postUser.getUsername());
+            userDTO.setFirstName(postUser.getFirstName());
+            userDTO.setLastName(postUser.getLastName());
 
-            postDTO.setUserInCommunity(userDTO);
+            postDTO.setCreated_by(userDTO);
 
             LinkedHashMap<String, String> fieldMap = new LinkedHashMap<>();
 
@@ -208,14 +209,77 @@ public class PostService {
             }
 
 
-            postDTO.setFieldDTOs(fieldMap);
+            postDTO.setContent(fieldMap);
+            postDTO.setTemplateName(post.getTemplate().getName());
             
             postDTOs.add(postDTO);
         }
 
         return postDTOs;
     }
+
+    public List<PostInCommunityDTO> searchPostsByTemplateFieldsInCommunity(Long communityId, String templateName, Map<String, String> searchCriteria) {
+
+        Community community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new NotFoundException("Community not found with ID: " + communityId));
+
+        List<PostInCommunityDTO> postsInCommunity = getPostsInCommunity(communityId);
+
+        List<PostInCommunityDTO> postsWithDesiredTemplate = postsInCommunity.stream()
+                .filter(post -> post.getTemplateName().equals(templateName))
+                .collect(Collectors.toList());
+
+        List<PostInCommunityDTO> filteredPosts = new ArrayList<>();
+        // Iterate through each post
+        for (PostInCommunityDTO post : postsWithDesiredTemplate) {
+            boolean meetsAllCriteria = true;
+
+            // Check each criterion
+            for (Map.Entry<String, String> criterion : searchCriteria.entrySet()) {
+                if (!criterion.getKey().equals("templateName")) {
+                    String fieldName = criterion.getKey();
+                    String expectedValue = criterion.getValue().toLowerCase().trim();
+
+                    String actualValue = post.getContent().get(fieldName);
+
+                    if (actualValue == null || !actualValue.toLowerCase().trim().equals(expectedValue)) {
+                        meetsAllCriteria = false;
+                        break; // Break out of the inner loop if any criterion isn't met
+                    }
+                }
+            }
+
+            // If the post meets all criteria, add it to the filtered list
+            if (meetsAllCriteria) {
+                filteredPosts.add(post);
+            }
+        }
+
+        return filteredPosts;
+    }
+
+    private String getFieldValue(Post post, String fieldName) {
+        for (PostFieldValue fieldValue : post.getFieldValues()) {
+            if (fieldValue.getPostDataField().getName().equals(fieldName)) {
+                return fieldValue.getValue();
+            }
+        }
+        return ""; // Return empty string if field not found
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*    public Post createPost(PostCreationRequest request) {

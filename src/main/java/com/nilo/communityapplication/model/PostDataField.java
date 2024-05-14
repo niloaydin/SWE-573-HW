@@ -1,6 +1,7 @@
 package com.nilo.communityapplication.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,6 +33,12 @@ public class PostDataField {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private PostTemplate postTemplate;
+
+    @OneToMany(mappedBy = "postDataField", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<PostFieldValue> values;
 
 /*    @OneToMany(mappedBy = "postDataField", fetch = FetchType.LAZY)
     @JsonManagedReference("post-data-value")

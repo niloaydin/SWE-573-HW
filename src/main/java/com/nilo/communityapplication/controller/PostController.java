@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public class PostController {
     public ResponseEntity<?> createPost(
             @PathVariable Long communityId,
             @RequestParam(required = false) Long templateId,
-            @RequestBody Map<String, String> requestData
+            @RequestBody LinkedHashMap<String, String> requestData
     ) {
         try {
 

@@ -35,7 +35,7 @@ public class PostTemplateController {
         try {
 
             String templateName = request.getTemplateName();
-            Set<DataFieldRequest> dataFields = request.getDataFields();
+            List<DataFieldRequest> dataFields = request.getDataFields();
             logger.info("AAAAAAAAAAAAA");
             PostTemplate createdPostTemplate = postTemplateService.createPostTemplate(templateName, dataFields, communityId);
             return new ResponseEntity<>(createdPostTemplate, HttpStatus.CREATED);

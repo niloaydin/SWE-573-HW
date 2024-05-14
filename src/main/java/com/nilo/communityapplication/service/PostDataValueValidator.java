@@ -6,6 +6,7 @@ import com.nilo.communityapplication.model.PostTemplate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.Date;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class PostDataValueValidator {
     private static final String URL_REGEX = "^(https?|ftp):\\/\\/[A-Za-z0-9]+([\\-\\.]{1}[A-Za-z0-9]+)*\\.[A-Za-z]{2,5}(:[0-9]{1,5})?(\\/[^\\s]*)?$";
 
     public boolean validateFieldTypes(PostTemplate template, Map<String, String> requestData) {
-        Set<PostDataField> dataFields = template.getDatafields();
+        List<PostDataField> dataFields = template.getDatafields();
 
         for (PostDataField field : dataFields) {
             String fieldType = field.getType();

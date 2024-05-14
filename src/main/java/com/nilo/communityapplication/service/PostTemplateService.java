@@ -18,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -62,14 +59,14 @@ public class PostTemplateService {
     }
 
     @Transactional
-    public PostTemplate createPostTemplate(String templateName, Set<DataFieldRequest> dataFields, Long communityId) throws Exception {
+    public PostTemplate createPostTemplate(String templateName, List<DataFieldRequest> dataFields, Long communityId) throws Exception {
         try {
             PostTemplate postTemplate = new PostTemplate();
             postTemplate.setName(templateName);
             logger.info("datafield request {}", dataFields);
             Community communityToSaveTemplate = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community not found with id: " + communityId));
 
-            Set<PostDataField> postDataFields = new HashSet<>();
+            List<PostDataField> postDataFields = new ArrayList<>();
             if (dataFields != null) {
                 for (DataFieldRequest fieldRequest : dataFields) {
                     PostDataField dataField = new PostDataField();

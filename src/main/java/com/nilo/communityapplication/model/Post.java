@@ -9,6 +9,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -52,6 +53,6 @@ public class Post {
     @JsonManagedReference("post-field-value")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<PostFieldValue> fieldValues;
+    private List<PostFieldValue> fieldValues;
 
 }

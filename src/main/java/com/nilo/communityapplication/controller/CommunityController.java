@@ -1,7 +1,10 @@
 package com.nilo.communityapplication.controller;
 
+import com.nilo.communityapplication.DTO.CommunityDTO;
 import com.nilo.communityapplication.DTO.PostInCommunityDTO;
 import com.nilo.communityapplication.DTO.UserInCommunityDTO;
+import com.nilo.communityapplication.auth.config.JwtService;
+import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.Post;
 import com.nilo.communityapplication.model.User;
@@ -18,6 +21,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -25,7 +29,9 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @RestController
 @SecurityRequirement(name = "swagger_authentication")
@@ -35,6 +41,7 @@ public class CommunityController {
     private final CommunityService communityService;
     private final UserJoinedCommunityService userJoinedCommunityService;
     private final PostService postService;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CommunityController.class);
 
     @PostMapping
     @Operation(summary = "Creates new community", description = "Get the info from the request body and save to the database.")
@@ -52,22 +59,24 @@ public class CommunityController {
 
     @GetMapping
     @Operation(summary = "Fetches all communities", description = "Fetches all communities from database.")
-    public List<Community> getAllCommunities(){
+    public List<CommunityDTO> getAllCommunities(){
 
-
-        return communityService.getAllCommunities();
+        return communityService.getAllCommunitiesWithDetails();
 
     }
     @GetMapping("/{communityId}")
     @Operation(summary = "Fetches one community with ID", description = "Fetches one community from database with community ID.")
-    public ResponseEntity<Community> getCommunityById( @Parameter(description = "Community Id", required = true) @PathVariable Long communityId) {
-        Optional<Community> community = communityService.getCommunityById(communityId);
+    public ResponseEntity<CommunityDTO> getCommunityById( @Parameter(description = "Community Id", required = true) @PathVariable Long communityId) {
+        CommunityDTO singleCommunity = communityService.getSingleCommunity(communityId);
+        return ResponseEntity.ok(singleCommunity);
 
-        if(community.isPresent()) {
-            return new ResponseEntity<>(community.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    }
+    @GetMapping("/{communityId}/members")
+    @Operation(summary = "Fetches one community with ID", description = "Fetches one community from database with community ID.")
+    public ResponseEntity<List<UserInCommunityDTO>> getCommunityMembers( @Parameter(description = "Community Id", required = true) @PathVariable Long communityId) {
+         List<UserInCommunityDTO> membersOfCommunity = communityService.getMembersOfCommunity(communityId);
+        return ResponseEntity.ok(membersOfCommunity);
+
     }
     @PostMapping("/joinCommunity/{communityId}")
     public ResponseEntity<String> joinCommunity(@PathVariable Long communityId) {
@@ -106,6 +115,25 @@ public class CommunityController {
 
         // Return the users as a response
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{communityId}/searchPosts")
+    public ResponseEntity<List<PostInCommunityDTO>> searchPostsByTemplateFieldsInCommunity(
+            @PathVariable Long communityId,
+            @RequestParam String templateName,
+            @RequestParam Map<String, String> searchCriteria) {
+        try {
+            searchCriteria.remove(templateName);
+            logger.info("Received communityId: {}", communityId);
+            logger.info("Received templateName: {}", templateName);
+            logger.info("Received searchCriteria: {}", searchCriteria);
+            List<PostInCommunityDTO> filteredPosts = postService.searchPostsByTemplateFieldsInCommunity(communityId, templateName, searchCriteria);
+
+            return ResponseEntity.ok(filteredPosts);
+        } catch (Exception e) {
+           logger.info("HATA VAR {}", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

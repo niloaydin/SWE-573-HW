@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,7 +25,7 @@ public class PostTemplate {
     @JsonManagedReference("post_template")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<PostDataField> datafields;
+    private List<PostDataField> datafields;
 
     @ManyToOne
     @JoinColumn(name="community_id")

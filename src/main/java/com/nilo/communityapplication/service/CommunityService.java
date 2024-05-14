@@ -1,5 +1,8 @@
 package com.nilo.communityapplication.service;
 
+import com.nilo.communityapplication.DTO.CommunityDTO;
+import com.nilo.communityapplication.DTO.PostInCommunityDTO;
+import com.nilo.communityapplication.DTO.UserInCommunityDTO;
 import com.nilo.communityapplication.auth.AuthenticationService;
 import com.nilo.communityapplication.auth.config.JwtService;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
@@ -19,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,6 +135,56 @@ public class  CommunityService {
 
     public Post getSinglePostInCommunity(Long postId, Long communityId){
         return postRepository.findByIdAndCommunityId(postId,communityId);
+    }
+
+    public List<CommunityDTO> getAllCommunitiesWithDetails() {
+        List<Community> communities = communityRepository.findAll();
+        List<CommunityDTO> communityDTOs = new ArrayList<>();
+
+        for (Community community : communities) {
+            CommunityDTO communityDTO = new CommunityDTO();
+            communityDTO.setId(community.getId());
+            communityDTO.setName(community.getName());
+            communityDTO.setDescription(community.getDescription());
+            communityDTO.setPublic(community.isPublic());
+            communityDTOs.add(communityDTO);
+
+        }
+        return communityDTOs;
+    }
+
+    public CommunityDTO getSingleCommunity(Long id){
+        Community community = communityRepository.findById(id).orElseThrow(() -> new NotFoundException("Community not found!"));
+
+        CommunityDTO communityDTO = new CommunityDTO();
+
+        communityDTO.setName(community.getName());
+        communityDTO.setDescription(community.getDescription());
+        communityDTO.setId(community.getId());
+        communityDTO.setPublic(community.isPublic());
+
+        return communityDTO;
+    }
+
+    public List<UserInCommunityDTO> getMembersOfCommunity(Long id){
+
+        Community community = communityRepository.findById(id).orElseThrow(() -> new NotFoundException("Community not found!"));
+
+        List<UserJoinedCommunities> communityMembersList = community.getMembers();
+
+        // Map members to MemberDTO
+        List<UserInCommunityDTO> communityMembers = new ArrayList<>();
+        for (UserJoinedCommunities member : communityMembersList) {
+            UserInCommunityDTO memberDTO = new UserInCommunityDTO();
+            memberDTO.setUserId(member.getUser().getId());
+            memberDTO.setUsername(member.getUser().getUsername());
+            memberDTO.setFirstName(member.getUser().getFirstName());
+            memberDTO.setLastName(member.getUser().getLastName());
+            memberDTO.setRoleName(member.getRole().getName());
+            communityMembers.add(memberDTO);
+        }
+        return communityMembers;
+
     }
 }
 

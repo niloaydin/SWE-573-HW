@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 public class PostInCommunityDTO {
     private Long id;
     private LocalDateTime createdAt;
-    private Map<String, String> fieldDTOs;
-    private UserInCommunityDTO userInCommunity;
+    private LinkedHashMap<String, String> content = new LinkedHashMap<>();
+    private String templateName;
+    private UserInCommunityDTO created_by;
 }
