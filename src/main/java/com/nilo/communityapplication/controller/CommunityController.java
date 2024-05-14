@@ -120,14 +120,11 @@ public class CommunityController {
     @GetMapping("/{communityId}/searchPosts")
     public ResponseEntity<List<PostInCommunityDTO>> searchPostsByTemplateFieldsInCommunity(
             @PathVariable Long communityId,
-            @RequestParam String templateName,
+            @RequestParam(required = false) Long template,
             @RequestParam Map<String, String> searchCriteria) {
         try {
-            searchCriteria.remove(templateName);
-            logger.info("Received communityId: {}", communityId);
-            logger.info("Received templateName: {}", templateName);
-            logger.info("Received searchCriteria: {}", searchCriteria);
-            List<PostInCommunityDTO> filteredPosts = postService.searchPostsByTemplateFieldsInCommunity(communityId, templateName, searchCriteria);
+
+            List<PostInCommunityDTO> filteredPosts = postService.searchPostsByTemplateFieldsInCommunity(communityId, template, searchCriteria);
 
             return ResponseEntity.ok(filteredPosts);
         } catch (Exception e) {

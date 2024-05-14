@@ -202,9 +202,7 @@ public class PostService {
 
             LinkedHashMap<String, String> fieldMap = new LinkedHashMap<>();
 
-            // Iterate through each field value of the post
             for (PostFieldValue fieldValue : post.getFieldValues()) {
-                // Add the field key-value pair to the LinkedHashMap
                 fieldMap.put(fieldValue.getPostDataField().getName(), fieldValue.getValue());
             }
 
@@ -218,15 +216,17 @@ public class PostService {
         return postDTOs;
     }
 
-    public List<PostInCommunityDTO> searchPostsByTemplateFieldsInCommunity(Long communityId, String templateName, Map<String, String> searchCriteria) {
+    public List<PostInCommunityDTO> searchPostsByTemplateFieldsInCommunity(Long communityId, Long templateId, Map<String, String> searchCriteria) {
 
         Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new NotFoundException("Community not found with ID: " + communityId));
 
+        PostTemplate template = postTemplateRepository.findById(templateId).orElseThrow(() -> new NotFoundException("Template not found with ID: " + templateId));
+
         List<PostInCommunityDTO> postsInCommunity = getPostsInCommunity(communityId);
 
         List<PostInCommunityDTO> postsWithDesiredTemplate = postsInCommunity.stream()
-                .filter(post -> post.getTemplateName().equals(templateName))
+                .filter(post -> post.getTemplateName().equals(template.getName()))
                 .collect(Collectors.toList());
 
         List<PostInCommunityDTO> filteredPosts = new ArrayList<>();
@@ -236,7 +236,7 @@ public class PostService {
 
 
             for (Map.Entry<String, String> criterion : searchCriteria.entrySet()) {
-                if (!criterion.getKey().equals("templateName")) {
+                if (!criterion.getKey().equals("template")) {
                     String fieldName = criterion.getKey();
                     String expectedValue = criterion.getValue().toLowerCase().trim();
 
@@ -257,14 +257,6 @@ public class PostService {
         return filteredPosts;
     }
 
-    private String getFieldValue(Post post, String fieldName) {
-        for (PostFieldValue fieldValue : post.getFieldValues()) {
-            if (fieldValue.getPostDataField().getName().equals(fieldName)) {
-                return fieldValue.getValue();
-            }
-        }
-        return ""; // Return empty string if field not found
-    }
 }
 
 
