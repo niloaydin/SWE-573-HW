@@ -61,10 +61,17 @@ public class PostTemplateService {
     @Transactional
     public PostTemplate createPostTemplate(String templateName, List<DataFieldRequest> dataFields, Long communityId) throws Exception {
         try {
+
             PostTemplate postTemplate = new PostTemplate();
             postTemplate.setName(templateName);
-            logger.info("datafield request {}", dataFields);
+
             Community communityToSaveTemplate = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community not found with id: " + communityId));
+
+            User currentUser = basicAuthorizationUtil.getCurrentUser();
+
+            if(!currentUser.getId().equals(communityToSaveTemplate.getOwner().getId())){
+                throw new NotAuthorizedException("You are not authorized to create a template!");
+            }
 
             List<PostDataField> postDataFields = new ArrayList<>();
             if (dataFields != null) {

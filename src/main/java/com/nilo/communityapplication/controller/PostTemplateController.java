@@ -41,8 +41,7 @@ public class PostTemplateController {
             return new ResponseEntity<>(createdPostTemplate, HttpStatus.CREATED);
         } catch (Exception e) {
 
-            String errorMessage = "An error occurred in the service: " + e.getMessage();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 
         }
     }
