@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -13,5 +14,6 @@ import java.util.List;
 public class PostInCommunityDTO {
     private Long id;
     private LocalDateTime createdAt;
-    private List<PostFieldDTO> fieldDTOs;
+    private Map<String, String> fieldDTOs;
+    private UserInCommunityDTO userInCommunity;
 }

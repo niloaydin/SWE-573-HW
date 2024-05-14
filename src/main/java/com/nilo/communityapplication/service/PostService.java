@@ -2,6 +2,7 @@ package com.nilo.communityapplication.service;
 
 import com.nilo.communityapplication.DTO.PostFieldDTO;
 import com.nilo.communityapplication.DTO.PostInCommunityDTO;
+import com.nilo.communityapplication.DTO.UserInCommunityDTO;
 import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
@@ -179,33 +180,36 @@ public class PostService {
         List<Post> posts = postRepository.findByCommunityId(communityId);
 
 
+
         List<PostInCommunityDTO> postDTOs = new ArrayList<>();
 
 
         for (Post post : posts) {
 
+            UserInCommunityDTO userDTO = new UserInCommunityDTO();
+
             PostInCommunityDTO postDTO = new PostInCommunityDTO();
             postDTO.setId(post.getId());
             postDTO.setCreatedAt(post.getCreatedAt());
+            User user = post.getUser();
+            userDTO.setUserId(user.getId());
+            userDTO.setUsername(user.getUsername());
+            userDTO.setFirstName(user.getFirstName());
+            userDTO.setLastName(user.getLastName());
 
+            postDTO.setUserInCommunity(userDTO);
 
-            List<PostFieldDTO> fieldDTOs = new ArrayList<>();
+            LinkedHashMap<String, String> fieldMap = new LinkedHashMap<>();
 
-
+            // Iterate through each field value of the post
             for (PostFieldValue fieldValue : post.getFieldValues()) {
-                // Create a DTO for the current field value
-                PostFieldDTO fieldDTO = new PostFieldDTO();
-                fieldDTO.setFieldName(fieldValue.getPostDataField().getName());
-                fieldDTO.setFieldValue(fieldValue.getValue());
-
-                // Add the field DTO to the list
-                fieldDTOs.add(fieldDTO);
+                // Add the field key-value pair to the LinkedHashMap
+                fieldMap.put(fieldValue.getPostDataField().getName(), fieldValue.getValue());
             }
 
 
-            postDTO.setFieldDTOs(fieldDTOs);
-
-
+            postDTO.setFieldDTOs(fieldMap);
+            
             postDTOs.add(postDTO);
         }
 
