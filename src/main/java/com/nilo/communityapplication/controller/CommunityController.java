@@ -133,5 +133,15 @@ public class CommunityController {
         }
     }
 
+    @DeleteMapping("/{communityId}/{postId}")
+    public ResponseEntity<String> deletePost(@PathVariable Long communityId, @PathVariable Long postId) {
+        try {
+            postService.deletePost(communityId, postId);
+            return ResponseEntity.ok("Post is deleted succesfully!");
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

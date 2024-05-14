@@ -257,6 +257,18 @@ public class PostService {
         return filteredPosts;
     }
 
+    public void deletePost(Long communityId, Long postId){
+        Community community = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community does not exists"));
+        Post post = postRepository.findPostById(postId);
+
+        if(post == null){
+            throw new NotFoundException("Post does not exist to delete");
+        }
+
+        postRepository.deleteById(postId);
+
+    }
+
 }
 
 
