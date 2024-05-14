@@ -1,15 +1,14 @@
 package com.nilo.communityapplication.service;
 
 import com.nilo.communityapplication.controller.PostTemplateController;
+import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
-import com.nilo.communityapplication.model.Community;
-import com.nilo.communityapplication.model.FieldType;
-import com.nilo.communityapplication.model.PostDataField;
-import com.nilo.communityapplication.model.PostTemplate;
+import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.CommunityRepository;
 import com.nilo.communityapplication.repository.PostDataFieldRepository;
 import com.nilo.communityapplication.repository.PostTemplateRepository;
 import com.nilo.communityapplication.requests.DataFieldRequest;
+import com.nilo.communityapplication.utils.BasicAuthorizationUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +25,7 @@ public class PostTemplateService {
 
     private final PostDataFieldRepository postDataFieldRepository;
     private final PostTemplateRepository postTemplateRepository;
+    private final BasicAuthorizationUtil basicAuthorizationUtil;
     private static final Logger logger = LoggerFactory.getLogger(PostTemplateService.class);
     private final CommunityRepository communityRepository;
 
@@ -101,9 +101,30 @@ public class PostTemplateService {
             default:
                 throw new IllegalArgumentException("Unsupported field type: " + fieldType);
         }
+
     }
 
 
+    public void deletePostTemplateMethod(Long communityId, Long templateId) throws Exception {
+        try {
+            Community community = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community does not exists"));
+            PostTemplate template = postTemplateRepository.findById(templateId).orElseThrow(() -> new NotFoundException("Template does not exists"));
+
+            User communityOwner = template.getCommunity().getOwner();
+
+            User currentUser = basicAuthorizationUtil.getCurrentUser();
+
+            if (!currentUser.getId().equals(communityOwner.getId())) {
+                throw new NotAuthorizedException("You are not authorized to delete this template");
+            }
+
+            // Finally, delete the PostTemplate
+            postTemplateRepository.deleteById(templateId);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
     public List<PostTemplate> getTemplates(){
         return postTemplateRepository.findAll();
     }

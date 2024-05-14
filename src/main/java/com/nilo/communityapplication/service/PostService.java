@@ -261,6 +261,11 @@ public class PostService {
         Community community = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community does not exists"));
         Post post = postRepository.findPostById(postId);
 
+        User currentUser = authUtil.getCurrentUser();
+
+        if(!currentUser.getId().equals(post.getUser().getId()) || !currentUser.getId().equals(community.getOwner().getId())){
+            throw new NotAuthorizedException("You are not authorized to delete this post");
+        }
         if(post == null){
             throw new NotFoundException("Post does not exist to delete");
         }
