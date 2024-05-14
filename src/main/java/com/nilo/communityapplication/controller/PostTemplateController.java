@@ -52,6 +52,12 @@ public class PostTemplateController {
         return postTemplateService.getTemplates();
     }
 
+    @DeleteMapping("{communityId}/deleteTemplate/{templateId}")
+    public ResponseEntity<?> deletePostTemplate(@PathVariable Long communityId, @PathVariable Long templateId) throws Exception {
+            postTemplateService.deletePostTemplateMethod(communityId, templateId);
+            return ResponseEntity.ok("Template is deleted succesfully!");
+    }
+
 /*    @PostMapping()
     public ResponseEntity<String> processData(@RequestBody Set<String> data) {
         // Process the data here, for example, you can print it

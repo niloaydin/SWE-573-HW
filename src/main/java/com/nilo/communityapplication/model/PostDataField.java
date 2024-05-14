@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,7 @@ public class PostDataField {
     private PostTemplate postTemplate;
 
     @OneToMany(mappedBy = "postDataField", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
