@@ -71,6 +71,24 @@ public class CommunityController {
         return ResponseEntity.ok(singleCommunity);
 
     }
+
+    @PutMapping("/{communityId}")
+    public ResponseEntity<Object> updateCommunity(
+          @PathVariable Long communityId,
+          @RequestBody CommunityRequest communityRequest) {
+        try {
+            Community updatedCommunity = communityService.updateCommunity(communityId, communityRequest);
+            return ResponseEntity.ok(updatedCommunity);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // Log the exception
+            e.printStackTrace();
+            // Return a 400 Bad Request response with the error message
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/{communityId}/members")
     @Operation(summary = "Fetches one community with ID", description = "Fetches one community from database with community ID.")
     public ResponseEntity<List<UserInCommunityDTO>> getCommunityMembers( @Parameter(description = "Community Id", required = true) @PathVariable Long communityId) {

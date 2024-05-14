@@ -5,6 +5,7 @@ import com.nilo.communityapplication.DTO.PostInCommunityDTO;
 import com.nilo.communityapplication.DTO.UserInCommunityDTO;
 import com.nilo.communityapplication.auth.AuthenticationService;
 import com.nilo.communityapplication.auth.config.JwtService;
+import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
 import com.nilo.communityapplication.repository.*;
@@ -185,6 +186,25 @@ public class  CommunityService {
         }
         return communityMembers;
 
+    }
+
+    @Transactional
+    public Community updateCommunity(Long communityId, CommunityRequest communityRequest) throws Exception {
+
+        User currentUser = authUtil.getCurrentUser();
+
+        Community existingCommunity = communityRepository.findById(communityId)
+                .orElseThrow(() -> new NotFoundException("Community not found with ID: " + communityId));
+
+        if(!currentUser.getId().equals(existingCommunity.getOwner().getId())){
+            throw new NotAuthorizedException("You are not the owner of this community!");
+        }
+
+        existingCommunity.setName(communityRequest.getName());
+        existingCommunity.setDescription(communityRequest.getDescription());
+        existingCommunity.setPublic(communityRequest.isPublic());
+
+        return communityRepository.save(existingCommunity);
     }
 }
 
