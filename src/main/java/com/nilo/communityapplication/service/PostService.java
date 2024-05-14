@@ -230,11 +230,11 @@ public class PostService {
                 .collect(Collectors.toList());
 
         List<PostInCommunityDTO> filteredPosts = new ArrayList<>();
-        // Iterate through each post
+
         for (PostInCommunityDTO post : postsWithDesiredTemplate) {
             boolean meetsAllCriteria = true;
 
-            // Check each criterion
+
             for (Map.Entry<String, String> criterion : searchCriteria.entrySet()) {
                 if (!criterion.getKey().equals("templateName")) {
                     String fieldName = criterion.getKey();
@@ -244,12 +244,11 @@ public class PostService {
 
                     if (actualValue == null || !actualValue.toLowerCase().trim().equals(expectedValue)) {
                         meetsAllCriteria = false;
-                        break; // Break out of the inner loop if any criterion isn't met
+                        break;
                     }
                 }
             }
 
-            // If the post meets all criteria, add it to the filtered list
             if (meetsAllCriteria) {
                 filteredPosts.add(post);
             }
