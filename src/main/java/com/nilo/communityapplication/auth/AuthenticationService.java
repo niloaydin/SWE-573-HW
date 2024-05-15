@@ -2,7 +2,9 @@ package com.nilo.communityapplication.auth;
 
 import com.nilo.communityapplication.auth.config.JwtService;
 import com.nilo.communityapplication.model.Role;
+import com.nilo.communityapplication.model.TokenBlockList;
 import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.repository.TokenBlockListRepository;
 import com.nilo.communityapplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +27,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final TokenBlockListRepository tokenBlockListRepository;
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
     public AuthenticationResponse register (RegisterRequest request) {
@@ -66,8 +71,13 @@ public class AuthenticationService {
         }
     }
 
-    public User getCurrentUser(){
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    public void addToBlacklist(String token) {
+        if (!tokenBlockListRepository.existsByToken(token)) {
+            TokenBlockList blocklistToken = new TokenBlockList();
+            blocklistToken.setToken(token);
+            tokenBlockListRepository.save(blocklistToken);
+        }
     }
 
 }

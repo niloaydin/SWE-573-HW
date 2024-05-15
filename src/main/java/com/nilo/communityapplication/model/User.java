@@ -36,20 +36,20 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "owner",  fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
-    @JsonManagedReference("user-community-owner")
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Community> communities;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
-    @JsonManagedReference("user-community-join")
+    @JsonIgnoreProperties({"community", "members", "communityPosts"})
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<UserJoinedCommunities> joinedCommunities;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonManagedReference("user-posts")
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Post> userPosts;

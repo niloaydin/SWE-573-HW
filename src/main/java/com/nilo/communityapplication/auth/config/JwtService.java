@@ -1,11 +1,15 @@
 package com.nilo.communityapplication.auth.config;
 
+import com.nilo.communityapplication.auth.AuthenticationService;
+import com.nilo.communityapplication.auth.TokenBlackListService;
 import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.repository.TokenBlockListRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
 import org.slf4j.Logger;
@@ -20,10 +24,13 @@ import java.util.function.Function;
 
 @Service
 @Log
+@RequiredArgsConstructor
 public class JwtService {
 
     private static final String SECRET_KEY="602dcd264447c05d84b93d9cc5cd6973d8af5d19d0830fed10b031dc6445c65f";
     private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
+    private final TokenBlackListService blackListService;
+    private final TokenBlockListRepository tokenBlockListRepository;
 
     public String extractEmail(String token){
         String email  = extractClaim(token, Claims::getSubject);
@@ -48,10 +55,18 @@ public class JwtService {
 
     }
 
+    public boolean isBlacklisted(String token) {
+        return tokenBlockListRepository.existsByToken(token);
+    }
+
     public boolean isTokenValid(String token, User userDetails){
-        final String username = extractEmail(token);
-        logger.warn("USERNAME IN ISTOKENVALID {}", username);
-        return (username.equals(userDetails.getEmail())) && !isTokenExpired(token);
+        try {
+            final String username = extractEmail(token);
+            logger.warn("USERNAME IN ISTOKENVALID {}", username);
+            return (username.equals(userDetails.getEmail())) && !isTokenExpired(token) && !isBlacklisted(token);
+        }catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     private boolean isTokenExpired(String token) {
