@@ -90,40 +90,53 @@ public class  CommunityService {
 
     public void joinCommunity(Long communityId) {
         try {
-            // Get the authenticated user details
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            User user = authUtil.getCurrentUser();
             logger.info("COMMUNITY SERVICE USER {}", user);
 
-            // Get the community entity
             Community community = communityRepository.findById(communityId)
                     .orElseThrow(() -> new RuntimeException("Community not found"));
             logger.info("COMMUNITY SERVICE COMMUNITY {}", user);
 
-            // Create a new UserJoinedCommunities entity
             UserJoinedCommunities userJoinedCommunities = new UserJoinedCommunities();
             UserCommunityRole userRole = userCommunityRoleRepository.findByName("USER")
                     .orElseThrow(() -> new RuntimeException("User role not found"));
 
-            // Create the composite key
             CommunityJoinCompositeKey key = new CommunityJoinCompositeKey();
             key.setUserId(user.getId());
             key.setCommunityId(communityId);
             userJoinedCommunities.setId(key);
 
-            // Set the user and community properties
             userJoinedCommunities.setUser(user);
             userJoinedCommunities.setCommunity(community);
             userJoinedCommunities.setRole(userRole);
 
-            // Save the UserJoinedCommunities entity
             userJoinedCommunityRepository.save(userJoinedCommunities);
 
         } catch (Exception e){
             logger.error("An error occurred while joining the community: {}", e.getMessage());
-            throw e;
+            throw new RuntimeException(e.getMessage());
         }
 
 
+    }
+
+    public void leaveCommunity(Long communityId) {
+        try {
+
+            User user = authUtil.getCurrentUser();
+
+            CommunityJoinCompositeKey communityUserRelationId = new CommunityJoinCompositeKey();
+            communityUserRelationId.setUserId(user.getId());
+            communityUserRelationId.setCommunityId(communityId);
+
+            UserJoinedCommunities communityToLeave = userJoinedCommunityRepository.findById(communityUserRelationId).orElseThrow(()-> new NotFoundException("User haven't joined this community."));
+
+            userJoinedCommunityRepository.delete(communityToLeave);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public List<Community> ilkerAbi(Long roleId){

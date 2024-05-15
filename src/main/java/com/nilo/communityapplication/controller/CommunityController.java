@@ -96,10 +96,16 @@ public class CommunityController {
         return ResponseEntity.ok(membersOfCommunity);
 
     }
-    @PostMapping("/joinCommunity/{communityId}")
+    @PostMapping("/join/{communityId}")
     public ResponseEntity<String> joinCommunity(@PathVariable Long communityId) {
         communityService.joinCommunity(communityId);
         return ResponseEntity.ok("User joined the community successfully.");
+    }
+
+    @PostMapping("/leave/{communityId}")
+    public ResponseEntity<String> leaveCommunity(@PathVariable Long communityId) {
+        communityService.leaveCommunity(communityId);
+        return ResponseEntity.ok("User leaved the community successfully.");
     }
 
     @GetMapping("/neyzo")
