@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.controller;
 
+import com.nilo.communityapplication.DTO.UpdatedUserDTO;
 import com.nilo.communityapplication.DTO.UserRequestDTO;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.service.UserService;
@@ -40,7 +41,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(
             @RequestBody UserRequestDTO userRequest) {
         try {
-            User updatedUser = userService.updateUser(userRequest);
+            UpdatedUserDTO updatedUser = userService.updateUser(userRequest);
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

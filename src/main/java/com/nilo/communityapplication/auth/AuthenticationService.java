@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -33,23 +35,35 @@ public class AuthenticationService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.USER)
                     .build();
+            Optional<User> existingUserWithEmail = userRepository.findByEmail(request.getEmail());
+            User existingUserWithUsername = userRepository.findByUsername(request.getUsername());
+            if(existingUserWithEmail.isPresent() || existingUserWithUsername != null){
+                throw new RuntimeException("User already exists.");
+            }
             userRepository.save(user);
             String jwtToken = jwtService.generateToken(user);
+            logger.info("JWT Token: " + jwtToken);
             return AuthenticationResponse.builder().token(jwtToken).build();
         } catch (Exception e) {
             // Log the exception
+            String errorMessage = "Failed to register user: " + e.getMessage();
             logger.error("Error occurred while registering user: {}", e.getMessage(), e);
-            throw new RuntimeException("Failed to register user", e);
+            throw new RuntimeException(errorMessage);
         }
     }
 
     public AuthenticationResponse authenticate (AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        String jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            );
+            User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+            String jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder().token(jwtToken).build();
+        }catch (Exception e) {
+
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public User getCurrentUser(){

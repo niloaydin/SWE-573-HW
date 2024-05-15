@@ -31,19 +31,21 @@ public class JwtService {
         return email;
     }
 
-    public String generateToken(User userDetails){
+/*    public String generateToken(User userDetails){
         return generateToken(new HashMap<>(), userDetails);
-    }
+    }*/
 
-    public String generateToken(Map<String,Object> extraClaims, User userDetails){
-        return Jwts
-                .builder()
-                .setClaims(extraClaims)
+    public String generateToken(User userDetails){
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", userDetails.getEmail());
+        return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(userDetails.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // expires after 24 hours
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
+
     }
 
     public boolean isTokenValid(String token, User userDetails){
@@ -75,3 +77,4 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
+
