@@ -1,8 +1,6 @@
 package com.nilo.communityapplication.service;
 
-import com.nilo.communityapplication.DTO.PostFieldDTO;
-import com.nilo.communityapplication.DTO.PostInCommunityDTO;
-import com.nilo.communityapplication.DTO.UserInCommunityDTO;
+import com.nilo.communityapplication.DTO.*;
 import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedException;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.*;
@@ -113,17 +111,87 @@ public class PostService {
 
 
     @Transactional
-    public List<Post> findAll(){
-        return postRepository.findAll();
+    public List<PostDTO> findAll(){
+
+            List<Post> posts = postRepository.findAll();
+
+            List<PostDTO> postDTOs = new ArrayList<>();
+
+            for (Post post : posts) {
+                UserInCommunityDTO userDTO = new UserInCommunityDTO();
+
+                PostDTO postDTO = new PostDTO();
+                postDTO.setId(post.getId());
+                postDTO.setCreatedAt(post.getCreatedAt());
+                postDTO.setTemplateName(post.getTemplate().getName());
+
+                User postUser = post.getUser();
+                userDTO.setUserId(postUser.getId());
+                userDTO.setUsername(postUser.getUsername());
+                userDTO.setFirstName(postUser.getFirstName());
+                userDTO.setLastName(postUser.getLastName());
+                postDTO.setCreated_by(userDTO);
+
+                CommunityDTO communityInfo = new CommunityDTO();
+                communityInfo.setId(post.getCommunity().getId());
+                communityInfo.setPublic(post.getCommunity().isPublic());
+                communityInfo.setDescription(post.getCommunity().getDescription());
+                communityInfo.setName(post.getCommunity().getName());
+
+
+                LinkedHashMap<String, String> fieldMap = new LinkedHashMap<>();
+                for (PostFieldValue fieldValue : post.getFieldValues()) {
+                    fieldMap.put(fieldValue.getPostDataField().getName(), fieldValue.getValue());
+                }
+                postDTO.setContent(fieldMap);
+
+                postDTO.setCommunity(communityInfo);
+
+                postDTOs.add(postDTO);
+            }
+
+            return postDTOs;
+
     }
 
-    public Post findPostById(Long id){
-       Post singlePost = postRepository.findPostById(id);
-        if (singlePost == null){
-            new NotFoundException("Post not found with ID: " + id);
+    public PostDTO findPostById(Long id){
+       Post post = postRepository.findPostById(id);
+
+
+        if (post == null){
+            throw new NotFoundException("Post not found with ID: " + id);
         }
 
-        return singlePost;
+        UserInCommunityDTO userDTO = new UserInCommunityDTO();
+
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(post.getId());
+        postDTO.setCreatedAt(post.getCreatedAt());
+        postDTO.setTemplateName(post.getTemplate().getName());
+
+        User postUser = post.getUser();
+        userDTO.setUserId(postUser.getId());
+        userDTO.setUsername(postUser.getUsername());
+        userDTO.setFirstName(postUser.getFirstName());
+        userDTO.setLastName(postUser.getLastName());
+        postDTO.setCreated_by(userDTO);
+
+        CommunityDTO communityInfo = new CommunityDTO();
+        communityInfo.setId(post.getCommunity().getId());
+        communityInfo.setPublic(post.getCommunity().isPublic());
+        communityInfo.setDescription(post.getCommunity().getDescription());
+        communityInfo.setName(post.getCommunity().getName());
+
+
+        LinkedHashMap<String, String> fieldMap = new LinkedHashMap<>();
+        for (PostFieldValue fieldValue : post.getFieldValues()) {
+            fieldMap.put(fieldValue.getPostDataField().getName(), fieldValue.getValue());
+        }
+        postDTO.setContent(fieldMap);
+
+        postDTO.setCommunity(communityInfo);
+
+        return postDTO;
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 package com.nilo.communityapplication.controller;
 
+import com.nilo.communityapplication.DTO.PostDTO;
 import com.nilo.communityapplication.model.Post;
 import com.nilo.communityapplication.requests.PostCreationRequest;
 import com.nilo.communityapplication.service.PostService;
@@ -44,14 +45,14 @@ public class PostController {
     }*/
 
     @GetMapping()
-    public ResponseEntity<List<Post>> getAll() {
-        List<Post> posts = postService.findAll();
+    public ResponseEntity<List<PostDTO>> getAll() {
+        List<PostDTO> posts = postService.findAll();
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getSinglePost(@PathVariable Long id) {
-        Post singlePost = postService.findPostById(id);
+    public ResponseEntity<PostDTO> getSinglePost(@PathVariable Long id) {
+        PostDTO singlePost = postService.findPostById(id);
         return ResponseEntity.ok(singlePost);
     }
 
