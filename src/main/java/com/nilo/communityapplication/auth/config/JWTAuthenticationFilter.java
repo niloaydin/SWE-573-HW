@@ -1,6 +1,7 @@
 package com.nilo.communityapplication.auth.config;
 
 import com.nilo.communityapplication.model.User;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,7 +40,15 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractEmail(jwt);
+        try {
+            userEmail = jwtService.extractEmail(jwt);
+        } catch (ExpiredJwtException e) {
+            // Handle expired JWT
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("Token has expired");
+            response.getWriter().flush();
+            return;
+        }
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
