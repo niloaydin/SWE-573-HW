@@ -39,11 +39,13 @@ public class  CommunityService {
     private final PostRepository postRepository;
     private final BasicAuthorizationUtil authUtil;
     private static final Logger logger = LoggerFactory.getLogger(CommunityService.class);
+    private final PostTemplateRepository postTemplateRepository;
 
     @Transactional
     public Community createCommunity(CommunityRequest communityRequest) throws Exception {
         // Get authenticated user details
         User userDetails = authUtil.getCurrentUser();
+        PostTemplate defaultTemplate = postTemplateRepository.findByName("Default Template");
 
 
         UserCommunityRole ownerRole = userCommunityRoleRepository.findByName("OWNER")
@@ -156,12 +158,21 @@ public class  CommunityService {
         List<CommunityDTO> communityDTOs = new ArrayList<>();
 
         for (Community community : communities) {
+            UserInCommunityDTO owner = new UserInCommunityDTO();
             CommunityDTO communityDTO = new CommunityDTO();
             communityDTO.setId(community.getId());
             communityDTO.setName(community.getName());
             communityDTO.setDescription(community.getDescription());
             communityDTO.setPublic(community.isPublic());
+            owner.setUserId(community.getOwner().getId());
+            owner.setEmail(community.getOwner().getEmail());
+            owner.setFirstName(community.getOwner().getFirstName());
+            owner.setLastName(community.getOwner().getLastName());
+            owner.setUsername(community.getOwner().getUsername());
+            communityDTO.setOwner(owner);
+
             communityDTOs.add(communityDTO);
+
 
         }
         return communityDTOs;
@@ -171,11 +182,19 @@ public class  CommunityService {
         Community community = communityRepository.findById(id).orElseThrow(() -> new NotFoundException("Community not found!"));
 
         CommunityDTO communityDTO = new CommunityDTO();
+        UserInCommunityDTO owner = new UserInCommunityDTO();
 
         communityDTO.setName(community.getName());
         communityDTO.setDescription(community.getDescription());
         communityDTO.setId(community.getId());
         communityDTO.setPublic(community.isPublic());
+
+        owner.setUserId(community.getOwner().getId());
+        owner.setEmail(community.getOwner().getEmail());
+        owner.setFirstName(community.getOwner().getFirstName());
+        owner.setLastName(community.getOwner().getLastName());
+        owner.setUsername(community.getOwner().getUsername());
+        communityDTO.setOwner(owner);
 
         return communityDTO;
     }
@@ -195,6 +214,7 @@ public class  CommunityService {
             memberDTO.setFirstName(member.getUser().getFirstName());
             memberDTO.setLastName(member.getUser().getLastName());
             memberDTO.setRoleName(member.getRole().getName());
+            memberDTO.setEmail(member.getUser().getEmail());
             communityMembers.add(memberDTO);
         }
         return communityMembers;

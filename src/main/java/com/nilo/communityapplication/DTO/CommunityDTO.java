@@ -14,6 +14,7 @@ public class CommunityDTO {
     private String name;
     private String description;
     private boolean isPublic;
+    private UserInCommunityDTO owner;
 /*    private List<UserInCommunityDTO> members;
     private List<PostInCommunityDTO> communityPosts;*/
 }

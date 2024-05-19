@@ -135,4 +135,7 @@ public class PostTemplateService {
     public List<PostTemplate> getTemplates(){
         return postTemplateRepository.findAll();
     }
+    public List<PostTemplate> getTemplatesForCommunity(Long communityId){
+        return postTemplateRepository.findByCommunityId(communityId);
+    }
 }

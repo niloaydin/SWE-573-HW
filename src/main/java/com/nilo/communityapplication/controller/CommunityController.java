@@ -7,14 +7,12 @@ import com.nilo.communityapplication.auth.config.JwtService;
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.Post;
+import com.nilo.communityapplication.model.PostTemplate;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.repository.PostRepository;
 import com.nilo.communityapplication.repository.UserJoinedCommunityRepository;
 import com.nilo.communityapplication.requests.CommunityRequest;
-import com.nilo.communityapplication.service.CommunityService;
-import com.nilo.communityapplication.service.PostService;
-import com.nilo.communityapplication.service.UserJoinedCommunityService;
-import com.nilo.communityapplication.service.UserService;
+import com.nilo.communityapplication.service.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,6 +38,7 @@ import java.util.logging.Logger;
 public class CommunityController {
     private final CommunityService communityService;
     private final UserJoinedCommunityService userJoinedCommunityService;
+    private final PostTemplateService postTemplateService;
     private final PostService postService;
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CommunityController.class);
 
@@ -166,6 +165,14 @@ public class CommunityController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @GetMapping("/{communityId}/templates")
+    public ResponseEntity<List<PostTemplate>> getTemplatesForCommunity(@PathVariable Long communityId) {
+        try {
+            List<PostTemplate> templates = postTemplateService.getTemplatesForCommunity(communityId);
+            return new ResponseEntity<>(templates, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
 
 }
