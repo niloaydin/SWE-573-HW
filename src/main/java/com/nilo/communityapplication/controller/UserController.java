@@ -1,6 +1,7 @@
 package com.nilo.communityapplication.controller;
 
 import com.nilo.communityapplication.DTO.UpdatedUserDTO;
+import com.nilo.communityapplication.DTO.UserDTO;
 import com.nilo.communityapplication.DTO.UserRequestDTO;
 import com.nilo.communityapplication.model.User;
 import com.nilo.communityapplication.service.UserService;
@@ -31,10 +32,16 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<User> getUserProfile() {
-        // Retrieve logged-in user's profile
-        User currentUser = authUtil.getCurrentUser();
-        return ResponseEntity.ok(currentUser);
+    public ResponseEntity<?> getUserProfile() {
+
+        try {
+            UserDTO currentUser = userService.getProfile();
+
+            return ResponseEntity.ok(currentUser);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
     }
 
     @PutMapping("/profile/edit")

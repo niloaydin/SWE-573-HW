@@ -226,7 +226,7 @@ public class  CommunityService {
     }
 
     @Transactional
-    public Community updateCommunity(Long communityId, CommunityRequest communityRequest) throws Exception {
+    public CommunityDTO updateCommunity(Long communityId, CommunityRequest communityRequest) throws Exception {
 
         User currentUser = authUtil.getCurrentUser();
 
@@ -236,12 +236,29 @@ public class  CommunityService {
         if(!currentUser.getId().equals(existingCommunity.getOwner().getId())){
             throw new NotAuthorizedException("You are not the owner of this community!");
         }
+        CommunityDTO communityDTO = new CommunityDTO();
+
+        UserInCommunityDTO owner = new UserInCommunityDTO();
+
+        communityDTO.setName(communityRequest.getName());
+        communityDTO.setDescription(communityRequest.getDescription());
+        communityDTO.setId(existingCommunity.getId());
+        communityDTO.setPublic(communityRequest.isPublic());
+
+        owner.setUserId(existingCommunity.getOwner().getId());
+        owner.setEmail(existingCommunity.getOwner().getEmail());
+        owner.setFirstName(existingCommunity.getOwner().getFirstName());
+        owner.setLastName(existingCommunity.getOwner().getLastName());
+        owner.setUsername(existingCommunity.getOwner().getUsername());
+        communityDTO.setOwner(owner);
 
         existingCommunity.setName(communityRequest.getName());
         existingCommunity.setDescription(communityRequest.getDescription());
         existingCommunity.setPublic(communityRequest.isPublic());
 
-        return communityRepository.save(existingCommunity);
+         communityRepository.save(existingCommunity);
+         return communityDTO;
+
     }
 }
 

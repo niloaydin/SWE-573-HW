@@ -1,6 +1,8 @@
 package com.nilo.communityapplication.service;
 
+import com.nilo.communityapplication.DTO.CommunityDTO;
 import com.nilo.communityapplication.DTO.UpdatedUserDTO;
+import com.nilo.communityapplication.DTO.UserDTO;
 import com.nilo.communityapplication.DTO.UserRequestDTO;
 import com.nilo.communityapplication.auth.AuthenticationRequest;
 import com.nilo.communityapplication.auth.AuthenticationResponse;
@@ -10,6 +12,7 @@ import com.nilo.communityapplication.globalExceptionHandling.NotAuthorizedExcept
 import com.nilo.communityapplication.globalExceptionHandling.NotFoundException;
 import com.nilo.communityapplication.model.Community;
 import com.nilo.communityapplication.model.User;
+import com.nilo.communityapplication.model.UserJoinedCommunities;
 import com.nilo.communityapplication.repository.CommunityRepository;
 import com.nilo.communityapplication.repository.UserRepository;
 import com.nilo.communityapplication.utils.BasicAuthorizationUtil;
@@ -22,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +51,47 @@ public class UserService {
         return users;
     }
 
+    public UserDTO getProfile() throws Exception {
+        try{
+            User currentUser = authUtil.getCurrentUser();
+            UserDTO userInfo = new UserDTO();
+            userInfo.setUserId(currentUser.getId());
+            userInfo.setFirstName(currentUser.getFirstName());
+            userInfo.setLastName(currentUser.getLastName());
+            userInfo.setEmail(currentUser.getEmail());
+            userInfo.setUsername(currentUser.getUsername());
+            userInfo.setPassword(currentUser.getPassword());
+            userInfo.setAvatar(currentUser.getAvatar());
+
+            List<CommunityDTO> joinedCommunitiesDTO = new ArrayList<>();
+
+            List<UserJoinedCommunities> joinedCommunities = currentUser.getJoinedCommunities();
+            List<CommunityDTO> ownedCommunities = new ArrayList<>();
+
+            for(UserJoinedCommunities joinedCommunity : joinedCommunities){
+                CommunityDTO communityDTO = new CommunityDTO();
+                communityDTO.setId(joinedCommunity.getCommunity().getId());
+                communityDTO.setName(joinedCommunity.getCommunity().getName());
+                communityDTO.setDescription(joinedCommunity.getCommunity().getDescription());
+
+                if(joinedCommunity.getCommunity().getOwner().getId().equals(currentUser.getId())){
+                    ownedCommunities.add(communityDTO);
+
+                } else{
+                    joinedCommunitiesDTO.add(communityDTO);
+                }
+
+
+            }
+            userInfo.setJoinedCommunities(joinedCommunitiesDTO);
+            userInfo.setOwnedCommunities(ownedCommunities);
+            return userInfo;
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
     public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
     }
@@ -56,7 +101,7 @@ public class UserService {
         User user = authUtil.getCurrentUser();
         boolean emailChanged = false;
 
-        if(!user.getEmail().equals(userRequest)) {
+        /*if(!user.getEmail().equals(userRequest.getEmail())) {
 
             emailChanged = true;
 
@@ -66,7 +111,7 @@ public class UserService {
             if (existingUserWithEmail.isPresent()) {
                 throw new RuntimeException("User with the email already exists.");
             }
-        }
+        }*/
         if(!user.getUsername().equals(userRequest.getUsername())){
             User existingUserWithUsername = userRepository.findByUsername(userRequest.getUsername());
             if (existingUserWithUsername != null) {
@@ -74,37 +119,34 @@ public class UserService {
             }
         }
 
-            user.setFirstName(userRequest.getUsername());
+            user.setFirstName(userRequest.getFirstName());
             user.setLastName(userRequest.getLastName());
             user.setUsername(userRequest.getUsername());
-            user.setEmail(userRequest.getEmail());
             user.setAvatar(userRequest.getAvatar());
 
             UpdatedUserDTO updatedUser = new UpdatedUserDTO();
             updatedUser.setId(user.getId());
-            updatedUser.setFirstName(userRequest.getUsername());
+            updatedUser.setFirstName(userRequest.getFirstName());
             updatedUser.setLastName(userRequest.getLastName());
             updatedUser.setUsername(userRequest.getUsername());
-            updatedUser.setEmail(userRequest.getEmail());
             updatedUser.setAvatar(userRequest.getAvatar());
 
-        if (userRequest.getPassword() != null && !userRequest.getPassword().isEmpty()) {
-            String hashedPassword = passwordEncoder.encode(userRequest.getPassword());
-            user.setPassword(hashedPassword);
-        }
+//        if (userRequest.getPassword() != null && !userRequest.getPassword().isEmpty()) {
+//            String hashedPassword = passwordEncoder.encode(userRequest.getPassword());
+//            user.setPassword(hashedPassword);
+//        }
 
         userRepository.save(user);
 
-        AuthenticationRequest authenticationRequest = new AuthenticationRequest(user.getEmail(), userRequest.getPassword());
-        String jwt = null;
+//        AuthenticationRequest authenticationRequest = new AuthenticationRequest(user.getEmail(), userRequest.getPassword());
+//        String jwt = null;
+//
+//        if(emailChanged){
+//            AuthenticationResponse authenticationResponse = authenticationService.authenticate(authenticationRequest);
+//            jwt = authenticationResponse.getToken();
+//        }
+//        updatedUser.setJwt(jwt);
 
-        if(emailChanged){
-            AuthenticationResponse authenticationResponse = authenticationService.authenticate(authenticationRequest);
-            jwt = authenticationResponse.getToken();
-        }
-        updatedUser.setJwt(jwt);
-
-        logger.info("+++++++++++++++++++ NEW JWT {}", jwt);
 
         return updatedUser;
     }
