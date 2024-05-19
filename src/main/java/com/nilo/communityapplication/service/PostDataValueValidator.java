@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PostDataValueValidator {
-    private static final String DATE_FORMAT = "MM/dd/yyyy";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String URL_REGEX = "^(https?|ftp):\\/\\/[A-Za-z0-9]+([\\-\\.]{1}[A-Za-z0-9]+)*\\.[A-Za-z]{2,5}(:[0-9]{1,5})?(\\/[^\\s]*)?$";
 
     public boolean validateFieldTypes(PostTemplate template, Map<String, String> requestData) {

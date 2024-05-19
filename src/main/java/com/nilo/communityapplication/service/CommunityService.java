@@ -43,43 +43,47 @@ public class  CommunityService {
 
     @Transactional
     public Community createCommunity(CommunityRequest communityRequest) throws Exception {
-        // Get authenticated user details
-        User userDetails = authUtil.getCurrentUser();
-        PostTemplate defaultTemplate = postTemplateRepository.findByName("Default Template");
+        try {
+            // Get authenticated user details
+            User userDetails = authUtil.getCurrentUser();
+            PostTemplate defaultTemplate = postTemplateRepository.findByName("Default Template");
 
 
-        UserCommunityRole ownerRole = userCommunityRoleRepository.findByName("OWNER")
-                .orElseThrow(() -> new RuntimeException("Owner role not found"));
+            UserCommunityRole ownerRole = userCommunityRoleRepository.findByName("OWNER")
+                    .orElseThrow(() -> new RuntimeException("Owner role not found"));
 
-        Community newCommunity = Community.builder()
-                .name(communityRequest.getName())
-                .description(communityRequest.getDescription())
-                .isPublic(communityRequest.isPublic())
-                .build();
-        newCommunity.setOwner(userDetails);
-        Community savedCommunity = communityRepository.save(newCommunity);
-        UserJoinedCommunities userJoinedCommunities = new UserJoinedCommunities();
+            Community newCommunity = Community.builder()
+                    .name(communityRequest.getName())
+                    .description(communityRequest.getDescription())
+                    .isPublic(communityRequest.isPublic())
+                    .build();
+            newCommunity.setOwner(userDetails);
+            Community savedCommunity = communityRepository.save(newCommunity);
+            UserJoinedCommunities userJoinedCommunities = new UserJoinedCommunities();
 
-        CommunityJoinCompositeKey key = new CommunityJoinCompositeKey();
-        key.setUserId(userDetails.getId());
-        key.setCommunityId(savedCommunity.getId());
-        userJoinedCommunities.setId(key);
+            CommunityJoinCompositeKey key = new CommunityJoinCompositeKey();
+            key.setUserId(userDetails.getId());
+            key.setCommunityId(savedCommunity.getId());
+            userJoinedCommunities.setId(key);
 
-        userJoinedCommunities.setUser(userDetails);
-        userJoinedCommunities.setCommunity(savedCommunity);
-        userJoinedCommunities.setRole(ownerRole);
+            userJoinedCommunities.setUser(userDetails);
+            userJoinedCommunities.setCommunity(savedCommunity);
+            userJoinedCommunities.setRole(ownerRole);
 
-        // Save the UserJoinedCommunities entity
-        userJoinedCommunityRepository.save(userJoinedCommunities);
+            // Save the UserJoinedCommunities entity
+            userJoinedCommunityRepository.save(userJoinedCommunities);
 
-        // Update user's communities
+            // Update user's communities
 /*        userDetails.getCommunities().add(savedCommunity);
         userRepository.save(userDetails);*/
 
-        logger.info("SAVED COMMUNITY {}", savedCommunity);
-        logger.info("DOES USER HAVE COMMUNITY {}", userDetails.getCommunities());
+            logger.info("SAVED COMMUNITY {}", savedCommunity);
+            logger.info("DOES USER HAVE COMMUNITY {}", userDetails.getCommunities());
+            return savedCommunity;
+        }catch(Error e){
+            throw new RuntimeException(e.getMessage());
+        }
 
-        return savedCommunity;
     }
     public List<Community> getAllCommunities(){
         List<Community> communities = communityRepository.findAll();

@@ -168,6 +168,7 @@ public class PostService {
         postDTO.setId(post.getId());
         postDTO.setCreatedAt(post.getCreatedAt());
         postDTO.setTemplateName(post.getTemplate().getName());
+        postDTO.setTemplateId(post.getTemplate().getId());
 
         User postUser = post.getUser();
         userDTO.setUserId(postUser.getId());
@@ -277,6 +278,7 @@ public class PostService {
 
             postDTO.setContent(fieldMap);
             postDTO.setTemplateName(post.getTemplate().getName());
+            postDTO.setTemplateId(post.getTemplate().getId());
             
             postDTOs.add(postDTO);
         }

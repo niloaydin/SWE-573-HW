@@ -49,9 +49,7 @@ public class CommunityController {
             Community community = communityService.createCommunity(communityRequest);
             return ResponseEntity.ok(community);
         } catch (Exception e) {
-            // Log the exception
-            e.printStackTrace();
-            // Return a 400 Bad Request response with the error message
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
@@ -156,7 +154,7 @@ public class CommunityController {
         }
     }
 
-    @DeleteMapping("/{communityId}/{postId}")
+    @DeleteMapping("/{communityId}/deletePost/{postId}")
     public ResponseEntity<String> deletePost(@PathVariable Long communityId, @PathVariable Long postId) {
         try {
             postService.deletePost(communityId, postId);

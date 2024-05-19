@@ -16,6 +16,7 @@ public class PostDTO {
     private LocalDateTime createdAt;
     private LinkedHashMap<String, String> content = new LinkedHashMap<>();
     private String templateName;
+    private Long templateId;
     private CommunityDTO community;
     private UserInCommunityDTO created_by;
 }
