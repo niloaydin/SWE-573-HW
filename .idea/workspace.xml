@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="idea file">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/WrongInputTypeException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="bde14fdf-013d-4ab4-ba09-66f13f37e031" name="Changes" comment="fix post creation valudation bug">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/DTO/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/auth/config/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/globalExceptionHandling/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/FieldType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/model/FieldType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/CommunityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,37 +62,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "/Users/nilayaydin/Desktop/SWE-573-HW",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "spring.configuration.checksum": "826720f31ad4ed938aaf8b86baa3f1f5",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nilayaydin/Desktop/SWE-573-HW&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;826720f31ad4ed938aaf8b86baa3f1f5&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.nilo.communityapplication.service" />
@@ -111,15 +109,65 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.CommunityApplication">
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="CommunityServiceTest.createCommunity_Success" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="community-application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nilo.communityapplication.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nilo.communityapplication" />
+      <option name="MAIN_CLASS_NAME" value="com.nilo.communityapplication.CommunityServiceTest" />
+      <option name="METHOD_NAME" value="createCommunity_Success" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+    <configuration name="CommunityTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="community-application" />
-      <option name="filePath" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nilo.communityapplication.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nilo.communityapplication" />
+      <option name="MAIN_CLASS_NAME" value="com.nilo.communityapplication.CommunityTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommunityTests.createPostTemplateWithFieldsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="community-application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nilo.communityapplication.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nilo.communityapplication" />
+      <option name="MAIN_CLASS_NAME" value="com.nilo.communityapplication.CommunityTests" />
+      <option name="METHOD_NAME" value="createPostTemplateWithFieldsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommunityTests.saveCommunityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="community-application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nilo.communityapplication.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nilo.communityapplication" />
+      <option name="MAIN_CLASS_NAME" value="com.nilo.communityapplication.CommunityTests" />
+      <option name="METHOD_NAME" value="saveCommunityTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -135,9 +183,21 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JUnit.CommunityServiceTest.createCommunity_Success" />
+      <item itemvalue="JUnit.CommunityTests" />
+      <item itemvalue="JUnit.CommunityTests.createPostTemplateWithFieldsTest" />
+      <item itemvalue="JUnit.CommunityTests.saveCommunityTest" />
       <item itemvalue="Node.js.page.js" />
       <item itemvalue="Spring Boot.CommunityApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CommunityTests" />
+        <item itemvalue="JUnit.CommunityTests.createPostTemplateWithFieldsTest" />
+        <item itemvalue="JUnit.CommunityTests.saveCommunityTest" />
+        <item itemvalue="JUnit.CommunityServiceTest.createCommunity_Success" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -162,62 +222,8 @@
       <workItem from="1715448752659" duration="83000" />
       <workItem from="1715452080897" duration="5118000" />
       <workItem from="1715499663681" duration="10355000" />
-    </task>
-    <task id="LOCAL-00001" summary="fix authentication issues">
-      <created>1713888782406</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1713888782406</updated>
-    </task>
-    <task id="LOCAL-00002" summary="add create community functionality">
-      <created>1713888808224</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1713888808224</updated>
-    </task>
-    <task id="LOCAL-00003" summary="add current User method">
-      <created>1713904293570</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1713904293570</updated>
-    </task>
-    <task id="LOCAL-00004" summary="add current User method">
-      <created>1713904556074</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1713904556074</updated>
-    </task>
-    <task id="LOCAL-00005" summary="add getUserById method">
-      <created>1713906572052</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1713906572052</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add getCommunityById method">
-      <created>1713906582411</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1713906582411</updated>
-    </task>
-    <task id="LOCAL-00007" summary="create getAllCommunities method">
-      <created>1713907082414</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1713907082414</updated>
-    </task>
-    <task id="LOCAL-00008" summary="change db setting">
-      <created>1714029296900</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1714029296900</updated>
+      <workItem from="1715804539965" duration="2328000" />
+      <workItem from="1716019364711" duration="27630000" />
     </task>
     <task id="LOCAL-00009" summary="join community functionality, but not working">
       <created>1714029317807</created>
@@ -373,7 +379,196 @@
       <option name="project" value="LOCAL" />
       <updated>1715502713959</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="merge?">
+      <created>1715530357466</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1715530357466</updated>
+    </task>
+    <task id="LOCAL-00032" summary="post field validator class">
+      <created>1715530469490</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1715530469490</updated>
+    </task>
+    <task id="LOCAL-00033" summary="add edit post endpoint">
+      <created>1715541440031</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1715541440031</updated>
+    </task>
+    <task id="LOCAL-00034" summary="add Authorization util and implement it to necessary files">
+      <created>1715544273253</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1715544273253</updated>
+    </task>
+    <task id="LOCAL-00035" summary="get users in a community">
+      <created>1715553603221</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1715553603221</updated>
+    </task>
+    <task id="LOCAL-00036" summary="enhance get posts in a community with DTO">
+      <created>1715555037221</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1715555037221</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fix post field order &amp; implement advanced search">
+      <created>1715705406048</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1715705406048</updated>
+    </task>
+    <task id="LOCAL-00038" summary="code enhancement">
+      <created>1715705458926</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1715705458926</updated>
+    </task>
+    <task id="LOCAL-00039" summary="change paramater name">
+      <created>1715708472668</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1715708472668</updated>
+    </task>
+    <task id="LOCAL-00040" summary="if post is deleted, values are deleted as well">
+      <created>1715709806027</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1715709806027</updated>
+    </task>
+    <task id="LOCAL-00041" summary="implement delete post functionality">
+      <created>1715710413823</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1715710413823</updated>
+    </task>
+    <task id="LOCAL-00042" summary="implement delete post template">
+      <created>1715714204700</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1715714204700</updated>
+    </task>
+    <task id="LOCAL-00043" summary="add authorization so that only the owner can add a post template">
+      <created>1715714650738</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1715714650738</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Created update community endpoint">
+      <created>1715716321012</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1715716321013</updated>
+    </task>
+    <task id="LOCAL-00045" summary="implement user profile endpoint">
+      <created>1715717853336</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1715717853336</updated>
+    </task>
+    <task id="LOCAL-00046" summary="password hash bug fixed &amp; deleting user implemented">
+      <created>1715720171803</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1715720171803</updated>
+    </task>
+    <task id="LOCAL-00047" summary="fix update user bug">
+      <created>1715771036987</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1715771036987</updated>
+    </task>
+    <task id="LOCAL-00048" summary="logout function implemented">
+      <created>1715773580715</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1715773580715</updated>
+    </task>
+    <task id="LOCAL-00049" summary="leave community function implemented">
+      <created>1715774366876</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1715774366876</updated>
+    </task>
+    <task id="LOCAL-00050" summary="write test for community and community template">
+      <created>1715802625016</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1715802625019</updated>
+    </task>
+    <task id="LOCAL-00051" summary="add PostDto for getting all the posts and getting a single post">
+      <created>1716019514251</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1716019514254</updated>
+    </task>
+    <task id="LOCAL-00052" summary="add .idea to gitignore">
+      <created>1716019544859</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1716019544859</updated>
+    </task>
+    <task id="LOCAL-00053" summary="add token expiration error">
+      <created>1716021955477</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1716021955477</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fix cors configuration">
+      <created>1716108925434</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1716108925434</updated>
+    </task>
+    <task id="LOCAL-00055" summary="get all templates, add email to userdto">
+      <created>1716108995877</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1716108995878</updated>
+    </task>
+    <task id="LOCAL-00056" summary="add post template id to post dto">
+      <created>1716118608923</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1716118608923</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix post creation valudation bug">
+      <created>1716138561674</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1716138561680</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,39 +587,39 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add getUserById method" />
-    <MESSAGE value="add getCommunityById method" />
-    <MESSAGE value="create getAllCommunities method" />
-    <MESSAGE value="change db setting" />
-    <MESSAGE value="join community functionality, but not working" />
-    <MESSAGE value="add dto and mapper but not working" />
-    <MESSAGE value="change models for user, community, and role. Create join Community endpoint" />
-    <MESSAGE value="save the roles to db at the initialization" />
-    <MESSAGE value="add jpa query example" />
-    <MESSAGE value="create posttemplate and posttemplatefields entites, servcice, controller and repository" />
-    <MESSAGE value="create post but not working correctly" />
-    <MESSAGE value="create posts" />
-    <MESSAGE value="create post completed and add swagger" />
-    <MESSAGE value="add production db" />
-    <MESSAGE value="update docker file" />
-    <MESSAGE value="add prod and dev database config" />
-    <MESSAGE value="fix the issue with endpoint path" />
-    <MESSAGE value="add exception handling so far" />
-    <MESSAGE value="create get a single post in a community endpoint" />
-    <MESSAGE value="fix endpoint" />
-    <MESSAGE value="add frontend to repo" />
-    <MESSAGE value="fix css" />
-    <MESSAGE value="add cors config" />
-    <MESSAGE value="fix bug for creating multiple communities" />
-    <MESSAGE value="idea file" />
-    <option name="LAST_COMMIT_MESSAGE" value="idea file" />
+    <MESSAGE value="add edit post endpoint" />
+    <MESSAGE value="add Authorization util and implement it to necessary files" />
+    <MESSAGE value="get users in a community" />
+    <MESSAGE value="enhance get posts in a community with DTO" />
+    <MESSAGE value="fix post field order &amp; implement advanced search" />
+    <MESSAGE value="code enhancement" />
+    <MESSAGE value="change paramater name" />
+    <MESSAGE value="if post is deleted, values are deleted as well" />
+    <MESSAGE value="implement delete post functionality" />
+    <MESSAGE value="implement delete post template" />
+    <MESSAGE value="add authorization so that only the owner can add a post template" />
+    <MESSAGE value="Created update community endpoint" />
+    <MESSAGE value="implement user profile endpoint" />
+    <MESSAGE value="password hash bug fixed &amp; deleting user implemented" />
+    <MESSAGE value="fix update user bug" />
+    <MESSAGE value="logout function implemented" />
+    <MESSAGE value="leave community function implemented" />
+    <MESSAGE value="write test for community and community template" />
+    <MESSAGE value="add PostDto for getting all the posts and getting a single post" />
+    <MESSAGE value="add .idea to gitignore" />
+    <MESSAGE value="add token expiration error" />
+    <MESSAGE value="fix cors configuration" />
+    <MESSAGE value="get all templates, add email to userdto" />
+    <MESSAGE value="add post template id to post dto" />
+    <MESSAGE value="fix post creation valudation bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix post creation valudation bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/CommunityService.java</url>
-          <line>61</line>
+          <line>71</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -438,88 +633,113 @@
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostTemplateService.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
-          <line>52</line>
+          <line>54</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
-          <line>53</line>
+          <line>55</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>123</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>140</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>133</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>179</line>
+          <line>331</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
-          <line>30</line>
+          <line>32</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="42" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>154</line>
-          <option name="timeStamp" value="43" />
+          <line>258</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
-          <line>149</line>
-          <option name="timeStamp" value="44" />
+          <line>77</line>
+          <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="45" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="79" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="46" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>271</line>
+          <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="48" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostTemplateController.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostDataValueValidator.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="49" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>215</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>217</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/PostService.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java</url>
+          <line>141</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/service/UserService.java</url>
+          <line>144</line>
+          <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/nilo/communityapplication/controller/PostController.java</url>
-          <line>51</line>
+          <line>53</line>
           <properties class="com.nilo.communityapplication.controller.PostController" method="getSinglePost">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
