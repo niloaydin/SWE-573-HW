@@ -101,9 +101,10 @@ public class PostService {
 
     private void validateRequestData(PostTemplate template, Map<String, String> requestData) throws Exception {
         List<PostDataField> dataFields = template.getDatafields();
+
         for (PostDataField field : dataFields) {
             String fieldName = field.getName();
-            if (field.isRequired() && !requestData.containsKey(fieldName)) {
+            if (field.isRequired() && (requestData.get(fieldName) == null || requestData.get(fieldName) == "") ) {
                 throw new Exception("Field '" + fieldName + "' is required");
             }
         }
@@ -227,14 +228,13 @@ public class PostService {
             String fieldName = field.getName();
             String fieldValue = requestData.get(fieldName);
             PostFieldValue existingFieldValue = post.getFieldValues().stream().filter(value -> value.getPostDataField().equals(field)).findFirst().orElse(null);
+            if (existingFieldValue != null && fieldValue != null) {
+                if (!fieldValue.equals(existingFieldValue.getValue())) {
 
-            if(!fieldValue.equals(existingFieldValue.getValue())) {
 
-                if (existingFieldValue != null) {
                     existingFieldValue.setValue(fieldValue);
                     postFieldValueRepository.save(existingFieldValue);
-                } else {
-                    throw new RuntimeException("Inconsistent data: Missing value for field " + fieldName);
+
                 }
             }
         }

@@ -19,27 +19,31 @@ public class PostDataValueValidator {
 
     public boolean validateFieldTypes(PostTemplate template, Map<String, String> requestData) {
         List<PostDataField> dataFields = template.getDatafields();
+        try {
 
-        for (PostDataField field : dataFields) {
-            String fieldType = field.getType();
+            for (PostDataField field : dataFields) {
+                String fieldType = field.getType();
 
-            if (fieldType.equals("String") || fieldType.equals("Boolean")) {
-                continue; // Skip validation for String and Boolean fields
-            } else if (fieldType.equals("Integer")) {
-                if (!PostDataValueValidator.isNumber(requestData.get(field.getName()))) {
-                    return false; // Validation failed, return false immediately
-                }
-            } else if (fieldType.equals("Date")) {
-                if (!PostDataValueValidator.isValidDate(requestData.get(field.getName()))) {
-                    return false;
-                }
-            } else if (fieldType.equals("URL")) {
-                if (!PostDataValueValidator.isValidUrl(requestData.get(field.getName()))) {
-                    return false;
+                if (fieldType.equals("String") || fieldType.equals("Boolean")) {
+                    continue; // Skip validation for String and Boolean fields
+                } else if (requestData.get(field.getName()) != null && fieldType.equals("Integer")) {
+                    if (!PostDataValueValidator.isNumber(requestData.get(field.getName()))) {
+                        return false; // Validation failed, return false immediately
+                    }
+                } else if (requestData.get(field.getName()) != null && fieldType.equals("Date")) {
+                    if (!PostDataValueValidator.isValidDate(requestData.get(field.getName()))) {
+                        return false;
+                    }
+                } else if (requestData.get(field.getName()) != null && fieldType.equals("URL")) {
+                    if (!PostDataValueValidator.isValidUrl(requestData.get(field.getName()))) {
+                        return false;
+                    }
                 }
             }
+            return true;
+        }catch(Exception e){
+            throw new RuntimeException("Values does not match the field types!");
         }
-        return true;
     }
 
     public static boolean isNumber(String value) {

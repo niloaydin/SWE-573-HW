@@ -56,7 +56,7 @@ public class PostController {
         return ResponseEntity.ok(singlePost);
     }
 
-    @PutMapping("{communityId}/post/{id}")
+    @PutMapping("{communityId}/edit/{id}")
     public ResponseEntity<Post> editSinglePost(@PathVariable Long id, @PathVariable Long communityId, @RequestBody Map<String, String> requestData) throws Exception {
 
             Post editPost = postService.editPost(communityId, id, requestData);

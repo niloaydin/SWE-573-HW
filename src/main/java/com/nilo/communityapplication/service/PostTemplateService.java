@@ -63,6 +63,9 @@ public class PostTemplateService {
         try {
 
             PostTemplate postTemplate = new PostTemplate();
+            if (templateName == null || templateName == ""){
+                throw new Exception("Template name cannot be empty");
+            }
             postTemplate.setName(templateName);
 
             Community communityToSaveTemplate = communityRepository.findById(communityId).orElseThrow(() -> new NotFoundException("Community not found with id: " + communityId));
