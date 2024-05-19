@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "owner",  fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
