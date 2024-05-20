@@ -8,7 +8,7 @@ The Community Information Application is designed to provide a platform where us
 
 Frontend repository can be reached through [this link](https://github.com/niloaydin/SWE-573-FE). However, it's important to keep in mind that, this repository is the main repository for the project and all the issues have been created both for frontend and backend in this repository. Each frontend change has been referenced with commit link in the issues.
 
-Deployed project can be reached through [this link](http://13.60.88.103:3000).
+Deployed project can be reached through [this link](http://16.170.162.125:3000/).
 
 ## Features
 
