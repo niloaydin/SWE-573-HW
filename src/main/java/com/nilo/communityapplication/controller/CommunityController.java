@@ -157,7 +157,7 @@ public class CommunityController {
             postService.deletePost(communityId, postId);
             return ResponseEntity.ok("Post is deleted succesfully!");
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
     @GetMapping("/{communityId}/templates")

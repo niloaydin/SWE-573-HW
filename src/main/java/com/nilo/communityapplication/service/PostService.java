@@ -333,14 +333,16 @@ public class PostService {
 
         User currentUser = authUtil.getCurrentUser();
 
-        if(!currentUser.getId().equals(post.getUser().getId()) || !currentUser.getId().equals(community.getOwner().getId())){
-            throw new NotAuthorizedException("You are not authorized to delete this post");
-        }
         if(post == null){
             throw new NotFoundException("Post does not exist to delete");
         }
+        if (currentUser.getId().equals(post.getUser().getId()) ||
+                currentUser.getId().equals(community.getOwner().getId())) {
+            postRepository.deleteById(postId);
+        } else {
+            throw new NotAuthorizedException("You are not authorized to delete this post");
+        }
 
-        postRepository.deleteById(postId);
 
     }
 
