@@ -312,7 +312,7 @@ public class PostService {
 
                     String actualValue = post.getContent().get(fieldName);
 
-                    if (actualValue == null || !actualValue.toLowerCase().trim().equals(expectedValue)) {
+                    if (actualValue == null || !actualValue.toLowerCase().trim().contains(expectedValue)) {
                         meetsAllCriteria = false;
                         break;
                     }
