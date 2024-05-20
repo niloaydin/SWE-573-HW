@@ -4,7 +4,11 @@ This is a community-specific information application developed as part of the Bo
 
 ## Overview
 
-The Community Information Application is designed to provide a platform where users can create and join communities, share information through posts, and engage with other users through commenting. The application is built using Java Spring Boot for the backend.
+The Community Information Application is designed to provide a platform where users can create and join communities, share information through posts, and engage with other users through commenting. The application is built using Java Spring Boot for the Backend and React for the Frontend.
+
+Frontend repository can be reached through [this link](https://github.com/niloaydin/SWE-573-FE). However, it's important to keep in mind that, this repository is the main repository for the project and all the issues have been created both for frontend and backend in this repository. Each frontend change has been referenced with commit link in the issues.
+
+Deployed project can be reached through [this link](http://13.60.88.103:3000).
 
 ## Features
 
@@ -12,8 +16,7 @@ The Community Information Application is designed to provide a platform where us
 - **Community Creation and Joining**: Users can create new communities or join existing ones.
 - **Post Creation**: Users can create posts within communities, sharing information and initiating discussions.
 - **Post Templates**: Community-specific post templates allow for structured information sharing.
-- **Commenting** (To be implemented): Users will be able to comment on posts to engage in discussions.
-- **Voting** (To be implemented): Users will be able to vote on posts and comments to express their opinions.
+
 
 ## Technologies Used
 
@@ -50,18 +53,12 @@ To run the application locally, follow these steps:
 
 ### Run the Application Using Docker
 #### Prerequisities
-You need to have docker installed in order to run the docker file.
-#### Build Docker Image
+You need to have docker installed in order to run the docker file. 
 
-To build the Docker image, use the following command:
-
-```bash
-docker build -t community-application .
-```
 #### Run the Docker Container
 To run the Docker container, use the following command:
 ```bash
-docker run -p 8080:8080 community-application
+docker compose up -d
 ```
 
 
