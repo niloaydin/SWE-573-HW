@@ -20,9 +20,9 @@ public class Community {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length=1000)
     private String name;
-
+    @Column(length = 5000)
     private String description;
 
     @Column(nullable = false)

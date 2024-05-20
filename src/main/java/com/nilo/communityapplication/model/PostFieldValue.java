@@ -30,7 +30,7 @@ public class PostFieldValue {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private PostDataField postDataField;
-
+    @Column(length = 8000)
     private String value;
 
 
